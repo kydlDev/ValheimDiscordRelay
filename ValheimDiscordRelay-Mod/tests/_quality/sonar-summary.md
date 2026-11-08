@@ -1,6 +1,6 @@
 ﻿# SonarQube ValheimDiscordRelay - OK (Medium/High impact issues: 0; Sonar server gate: ERROR)
 
-Run 2026-11-08 11:58:30, http://localhost:9000/dashboard?id=ValheimDiscordRelay
+Run 2026-11-08 13:20:43, http://localhost:9000/dashboard?id=ValheimDiscordRelay
 
 | Measure | Value |
 |---|---|
