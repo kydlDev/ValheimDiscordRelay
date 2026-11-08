@@ -10,6 +10,7 @@
 
 ### Changed
 - **The log says how fast a video was really captured**, for example `Captured 238 frames over 7.93 s = 29.9 fps (target 30 fps)`. When the real rate is more than 25 % below the setting, or the footage is more than 1 s shorter or longer than the settings ask for, a `CHECK OFF` warning is written (also with the debug log off), and the length of the finished WebP is checked against the plan. On a slow PC this tells you why a video looks choppy: lower `Video Resolution` or `Video FPS`.
+- **Needs KydlCore 1.1.0 or newer** (was 1.0.0; the mod manager installs it, also on a dedicated server). A server that runs KydlCore 1.1.0 needs every player who has KydlCore to have the same version.
 
 ## 2.0.0
 
