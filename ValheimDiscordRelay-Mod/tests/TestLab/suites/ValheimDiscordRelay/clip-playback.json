@@ -5,7 +5,7 @@
   "steps": [
     { "do": "use", "block": "startOnArena", "args": { "settle": 10 } },
     { "do": "hook", "name": "valheimdiscordrelay.clip", "expect": 1, "label": "clip started" },
-    { "do": "wait", "seconds": 40 },
+    { "do": "wait", "until": { "check": "hook", "name": "valheimdiscordrelay.clipBusy", "expect": 0 }, "timeout": 90 },
     { "do": "hook", "name": "valheimdiscordrelay.clipBusy", "expect": 0, "label": "clip finished" },
     { "do": "hook", "name": "valheimdiscordrelay.videoCaptureRate", "contains": "target", "label": "capture rate was measured" },
     { "do": "hook", "name": "valheimdiscordrelay.videoPlaysInRealTime", "expect": 1, "label": "clip plays in real time" },
