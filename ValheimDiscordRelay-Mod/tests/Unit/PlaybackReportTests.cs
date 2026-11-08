@@ -45,9 +45,10 @@ public class PlaybackReportTests
     [Test]
     public void TheToleranceIsInclusive()
     {
-        PlaybackReport report = new PlaybackReport(new CaptureRate(241, 8d, 30), 8800);
+        // 9.0 s of playback for 8 s of footage is a ratio of 1.125, exact in binary floating point.
+        PlaybackReport report = new PlaybackReport(new CaptureRate(241, 8d, 30), 9000);
 
-        Assert.That(report.PlaysInRealTime(0.1d), Is.True);
+        Assert.That(report.PlaysInRealTime(0.125d), Is.True);
     }
 
     [Test]

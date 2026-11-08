@@ -1,7 +1,0 @@
-{
-  "params": { "settle": 10 },
-  "steps": [
-    { "do": "hook", "name": "valheimdiscordrelay.arena", "contains": "arena at", "label": "start on the arena spot" },
-    { "do": "wait", "seconds": "{{settle}}" }
-  ]
-}
