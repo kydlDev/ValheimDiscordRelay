@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +24,7 @@ internal sealed partial class ClientCaptureService
 
         string player;
         string deathMessage;
+        float start;
         List<FrameEntry> selected = new List<FrameEntry>();
 
         lock (_sync)
@@ -31,7 +32,7 @@ internal sealed partial class ClientCaptureService
             player = _deathPlayer;
             deathMessage = _deathMessage;
 
-            float start = _deathTime - Mathf.Clamp(ClientConfig.DeathVideoPreDuration.Value, 2, 4);
+            start = _deathTime - Mathf.Clamp(ClientConfig.DeathVideoPreDuration.Value, 2, 4);
             float end = postEnd;
 
             // Copy, never remove: the rolling buffer keeps running and a boss clip may need the very same frames
@@ -49,11 +50,15 @@ internal sealed partial class ClientCaptureService
 
         DebugLog("Death capture complete. Selected " + selected.Count + " frames.");
 
+        // Read here, on the main thread, like everything else the worker needs.
+        int targetFps = Mathf.Clamp(ClientConfig.DeathVideoFps.Value, 20, 30);
+        int[] durations = PlanFrameDurations("Death", selected, targetFps, postEnd - start);
+
         ThreadPool.QueueUserWorkItem(delegate
         {
             try
             {
-                List<string> stagedFrames = StageDeathFrames(selected);
+                List<StagedFrame> stagedFrames = StageDeathFrames(selected, durations);
                 DebugLog("Death frame staging complete. Staged " + stagedFrames.Count + " of " + selected.Count + " frames.");
                 ProcessDeathVideo(player, deathMessage, stagedFrames);
             }
@@ -68,9 +73,16 @@ internal sealed partial class ClientCaptureService
         });
     }
 
-    private List<string> StageDeathFrames(List<FrameEntry> frames, string directoryPrefix = "")
+    private List<StagedFrame> StageDeathFrames(List<FrameEntry> frames, IReadOnlyList<int> durationsMs, string directoryPrefix = "")
     {
-        List<string> staged = new List<string>();
+        if (durationsMs == null || durationsMs.Count != frames.Count)
+        {
+            throw new ArgumentException(
+                $"Every frame needs a duration: {frames.Count} frames, {(durationsMs == null ? 0 : durationsMs.Count)} durations.",
+                nameof(durationsMs));
+        }
+
+        List<StagedFrame> staged = new List<StagedFrame>(frames.Count);
         string stagingDirectory = Path.Combine(
             _encodingRootDirectory,
             "DeathEncoding",
@@ -99,16 +111,18 @@ internal sealed partial class ClientCaptureService
                     {
                         RelayDiagnostics.Error("Buffered death frame was empty; skipping.");
                         DebugLog("ERROR: Buffered death frame was empty; skipping.");
+                        GiveDurationToPreviousFrame(staged, durationsMs[i]);
                         continue;
                     }
 
                     File.WriteAllBytes(destination, data);
-                    staged.Add(destination);
+                    staged.Add(new StagedFrame(destination, durationsMs[i]));
                 }
                 catch (Exception ex)
                 {
                     RelayDiagnostics.Error("Could not stage death frame '" + destination + "'.", ex);
                     DebugLog("ERROR: Could not stage death frame '" + destination + "': " + ex);
+                    GiveDurationToPreviousFrame(staged, durationsMs[i]);
                 }
             }
         }
@@ -121,7 +135,7 @@ internal sealed partial class ClientCaptureService
         return staged;
     }
 
-    private void ProcessDeathVideo(string player, string deathMessage, List<string> frames)
+    private void ProcessDeathVideo(string player, string deathMessage, List<StagedFrame> frames)
     {
         DebugLog("Beginning WebP processing. Player='" + player + "', Message='" + deathMessage +
                  "', Frames=" + (frames == null ? 0 : frames.Count) + ".");
@@ -133,9 +147,9 @@ internal sealed partial class ClientCaptureService
             return;
         }
 
-        frames.Sort(StringComparer.OrdinalIgnoreCase);
+        frames.Sort(StagedFrame.CompareByFilePath);
 
-        string outputDirectory = frames.Count > 0 ? Path.GetDirectoryName(frames[0]) : null;
+        string outputDirectory = frames.Count > 0 ? Path.GetDirectoryName(frames[0].FilePath) : null;
         if (string.IsNullOrWhiteSpace(outputDirectory))
             outputDirectory = _encodingRootDirectory;
 
@@ -173,12 +187,7 @@ internal sealed partial class ClientCaptureService
                 DebugLog("WebP attempt " + (i + 1) + "/4: quality=" + qualities[i] + ", method=" + methods[i] + ".");
                 SafeDelete(output);
 
-                if (!WebPTool.EncodeAnimation(
-                    frames,
-                    output,
-                    Mathf.Clamp(ClientConfig.DeathVideoFps.Value, 20, 30),
-                    qualities[i],
-                    methods[i]))
+                if (!WebPTool.EncodeAnimation(frames, output, qualities[i], methods[i]))
                 {
                     DebugLog("WebP attempt " + (i + 1) + " failed during encoding.");
                     continue;
@@ -247,14 +256,14 @@ internal sealed partial class ClientCaptureService
         }
         finally
         {
-            foreach (string frame in frames)
-                SafeDelete(frame);
+            foreach (StagedFrame frame in frames)
+                SafeDelete(frame.FilePath);
 
             try
             {
                 if (frames.Count > 0)
                 {
-                    string stagingDirectory = Path.GetDirectoryName(frames[0]);
+                    string stagingDirectory = Path.GetDirectoryName(frames[0].FilePath);
                     if (!string.IsNullOrWhiteSpace(stagingDirectory) &&
                         Directory.Exists(stagingDirectory) &&
                         !string.IsNullOrWhiteSpace(_encodingRootDirectory) &&

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,11 +7,11 @@ namespace ValheimDiscordRelay.Client;
 
 internal static class WebPFrameFiles
 {
-    internal static void ValidateFrames(List<string> frames)
+    internal static void ValidateFrames(IReadOnlyList<StagedFrame> frames)
     {
         for (int i = 0; i < frames.Count; i++)
         {
-            string frame = frames[i];
+            string frame = frames[i].FilePath;
 
             if (string.IsNullOrWhiteSpace(frame))
                 throw new InvalidDataException("Frame " + i + " has an empty path.");

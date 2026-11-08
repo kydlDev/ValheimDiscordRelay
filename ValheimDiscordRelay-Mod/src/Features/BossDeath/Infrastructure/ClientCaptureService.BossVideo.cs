@@ -384,22 +384,29 @@ internal sealed partial class ClientCaptureService
         string webhookUrl = BossConfig.WebhookUrl.Value.Trim();
         string username = ClientTextUtils.SanitizeUsername(BossConfig.WebhookUsername.Value);
 
-        // The clip must play back at the rate its frames were captured at.
+        // The configured rate is only the target of the capture: how long each frame is shown comes from the moments
+        // the frames were captured (see FrameTiming), so the clip plays at the speed of the footage.
         int fps = shared
             ? Mathf.Clamp(ClientConfig.DeathVideoFps.Value, 20, 30)
             : Mathf.Clamp(BossConfig.VideoFps.Value, 20, 30);
+        int[] durations = PlanFrameDurations("Boss", selected, fps, postEnd - start);
 
         ThreadPool.QueueUserWorkItem(delegate
         {
             // An exception that escapes a pool thread ends the whole game process: catch everything here.
             try
             {
-                List<string> staged = StageDeathFrames(selected, "boss-");
+                List<StagedFrame> staged = StageDeathFrames(selected, durations, "boss-");
                 DebugLog("Boss frame staging complete. Staged " + staged.Count + " of " + selected.Count + " frames.");
                 ProcessBossVideo(new BossVideoJob
                 {
-                    BossName = bossName, WebhookUrl = webhookUrl, Username = username, AvatarUrl = avatarUrl, Fps = fps,
-                    Frames = staged, AnnounceKey = announceKey, RemoteOwner = remoteOwner
+                    BossName = bossName,
+                    WebhookUrl = webhookUrl,
+                    Username = username,
+                    AvatarUrl = avatarUrl,
+                    Frames = staged,
+                    AnnounceKey = announceKey,
+                    RemoteOwner = remoteOwner
                 });
             }
             catch (Exception ex)

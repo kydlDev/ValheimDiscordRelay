@@ -191,12 +191,12 @@ internal static class WebPAnimationMerger
         }
     }
 
-    private static uint ReadUInt32(byte[] data, int offset)
+    internal static uint ReadUInt32(byte[] data, int offset)
     {
         return (uint)(data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16) | (data[offset + 3] << 24));
     }
 
-    private static int ReadUInt24(byte[] data, int offset)
+    internal static int ReadUInt24(byte[] data, int offset)
     {
         return data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16);
     }

@@ -15,9 +15,8 @@ internal sealed partial class ClientCaptureService
     {
         string bossName = job.BossName, webhookUrl = job.WebhookUrl, username = job.Username, avatarUrl = job.AvatarUrl;
         string announceKey = job.AnnounceKey;
-        int fps = job.Fps;
         long remoteOwner = job.RemoteOwner;
-        List<string> frames = job.Frames;
+        List<StagedFrame> frames = job.Frames;
 
         if (frames == null || frames.Count == 0)
         {
@@ -27,9 +26,9 @@ internal sealed partial class ClientCaptureService
             return;
         }
 
-        frames.Sort(StringComparer.OrdinalIgnoreCase);
+        frames.Sort(StagedFrame.CompareByFilePath);
 
-        string outputDirectory = Path.GetDirectoryName(frames[0]);
+        string outputDirectory = Path.GetDirectoryName(frames[0].FilePath);
         if (string.IsNullOrWhiteSpace(outputDirectory))
             outputDirectory = _encodingRootDirectory;
 
@@ -67,7 +66,7 @@ internal sealed partial class ClientCaptureService
                 DebugLog("Boss WebP attempt " + (i + 1) + "/4: quality=" + qualities[i] + ", method=" + methods[i] + ".");
                 SafeDelete(output);
 
-                if (!WebPTool.EncodeAnimation(frames, output, fps, qualities[i], methods[i]))
+                if (!WebPTool.EncodeAnimation(frames, output, qualities[i], methods[i]))
                 {
                     DebugLog("Boss WebP attempt " + (i + 1) + " failed during encoding.");
                     continue;
@@ -141,12 +140,12 @@ internal sealed partial class ClientCaptureService
 
             SafeDelete(output);
 
-            foreach (string frame in frames)
-                SafeDelete(frame);
+            foreach (StagedFrame frame in frames)
+                SafeDelete(frame.FilePath);
 
             try
             {
-                string stagingDirectory = Path.GetDirectoryName(frames[0]);
+                string stagingDirectory = Path.GetDirectoryName(frames[0].FilePath);
                 if (!string.IsNullOrWhiteSpace(stagingDirectory) &&
                     Directory.Exists(stagingDirectory) &&
                     !string.IsNullOrWhiteSpace(_encodingRootDirectory) &&

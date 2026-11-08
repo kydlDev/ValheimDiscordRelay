@@ -43,10 +43,13 @@ internal static class WebPTool
                ", error=" + (_initializationError ?? "<none>");
     }
 
+    /// <summary>
+    /// Encodes the frames into one animated WebP. Every frame is shown for its own <see cref="StagedFrame.DurationMs"/>,
+    /// so the animation plays at the speed the footage was captured at.
+    /// </summary>
     internal static bool EncodeAnimation(
-        List<string> frames,
+        List<StagedFrame> frames,
         string output,
-        int fps,
         int quality,
         int method)
     {
@@ -91,22 +94,20 @@ internal static class WebPTool
                 return false;
             }
 
-            int safeFps = Mathf.Clamp(fps, 20, 30);
             int safeQuality = Mathf.Clamp(quality, 0, 100);
             int safeMethod = Mathf.Clamp(method, 0, 6);
-            int duration = Mathf.Max(1, Mathf.RoundToInt(1000f / safeFps));
 
-            string frameDirectory = Path.GetDirectoryName(frames[0]);
+            string frameDirectory = Path.GetDirectoryName(frames[0].FilePath);
             if (string.IsNullOrWhiteSpace(frameDirectory))
                 frameDirectory = Directory.GetCurrentDirectory();
 
-            foreach (string frame in frames)
+            foreach (StagedFrame frame in frames)
             {
-                string directory = Path.GetDirectoryName(frame);
+                string directory = Path.GetDirectoryName(frame.FilePath);
                 if (!string.Equals(directory, frameDirectory, StringComparison.OrdinalIgnoreCase))
                 {
                     RelayDiagnostics.Error(
-                        "Cannot encode WebP because staged frames are not in one directory. Frame='" + frame + "'.");
+                        $"Cannot encode WebP because staged frames are not in one directory. Frame='{frame.FilePath}'.");
                     return false;
                 }
             }
@@ -123,21 +124,15 @@ internal static class WebPTool
             int chunkCount = Math.Max(1, Math.Min(WebPProcessRunner.MaxEncoderThreads, frames.Count / MinFramesPerChunk));
 
             RelayDiagnostics.Info(
-                "WebP encode starting. Executable='" + _toolPath +
-                "', Frames=" + frames.Count +
-                ", FPS=" + safeFps +
-                ", DurationMs=" + duration +
-                ", Quality=" + safeQuality +
-                ", Method=" + safeMethod +
-                ", Workers=" + chunkCount +
-                " (thread budget " + WebPProcessRunner.MaxEncoderThreads + " of " + Environment.ProcessorCount + " logical processors)" +
-                ", Output='" + output + "'.");
+                $"WebP encode starting. Executable='{_toolPath}', Frames={frames.Count}, PlaybackMs={WebPAnimationCheck.TotalDurationMs(frames)}, " +
+                $"Quality={safeQuality}, Method={safeMethod}, Workers={chunkCount} " +
+                $"(thread budget {WebPProcessRunner.MaxEncoderThreads} of {Environment.ProcessorCount} logical processors), Output='{output}'.");
 
             if (chunkCount > 1)
             {
                 bool mergeFailed;
-                if (EncodeInParallel(frames, output, frameDirectory, chunkCount, new EncodeSettings(safeQuality, safeMethod, duration), out mergeFailed))
-                    return VerifyOutput(output);
+                if (EncodeInParallel(frames, output, frameDirectory, chunkCount, new EncodeSettings(safeQuality, safeMethod), out mergeFailed))
+                    return VerifyOutput(output, frames);
 
                 if (WebPProcessRunner.Cancelled || !mergeFailed)
                 {
@@ -150,7 +145,7 @@ internal static class WebPTool
                 SafeDelete(output);
             }
 
-            string commandLine = BuildArguments(frames, output, new EncodeSettings(safeQuality, safeMethod, duration));
+            string commandLine = BuildArguments(frames, output, new EncodeSettings(safeQuality, safeMethod));
             RelayDiagnostics.Info("WebP encoder command: " + commandLine);
 
             if (!WebPProcessRunner.RunEncoder(_toolPath, commandLine, frameDirectory, output, "single"))
@@ -159,7 +154,7 @@ internal static class WebPTool
                 return false;
             }
 
-            return VerifyOutput(output);
+            return VerifyOutput(output, frames);
         }
         catch (Exception ex)
         {
@@ -169,13 +164,12 @@ internal static class WebPTool
         }
     }
 
-    /// <summary>The img2webp quality, effort method and per-frame duration (ms) of one encode.</summary>
+    /// <summary>The img2webp quality and effort method of one encode (the frame durations come with the frames).</summary>
     private readonly struct EncodeSettings
     {
-        internal EncodeSettings(int quality, int method, int duration) { Quality = quality; Method = method; Duration = duration; }
+        internal EncodeSettings(int quality, int method) { Quality = quality; Method = method; }
         internal int Quality { get; }
         internal int Method { get; }
-        internal int Duration { get; }
     }
 
     /// <summary>
@@ -184,7 +178,7 @@ internal static class WebPTool
     /// costs a little size compared to one continuous encode but makes the whole encode roughly that many times faster.
     /// </summary>
     private static bool EncodeInParallel(
-        List<string> frames,
+        List<StagedFrame> frames,
         string output,
         string frameDirectory,
         int chunkCount,
@@ -209,7 +203,7 @@ internal static class WebPTool
             for (int i = 0; i < chunkCount; i++)
             {
                 int count = perChunk + (i < remainder ? 1 : 0);
-                List<string> slice = frames.GetRange(start, count);
+                List<StagedFrame> slice = frames.GetRange(start, count);
                 start += count;
 
                 string part = Path.Combine(outputDirectory, stem + ".part" + i.ToString(CultureInfo.InvariantCulture) + ".webp");
@@ -220,7 +214,7 @@ internal static class WebPTool
                 string label = "chunk " + (i + 1) + "/" + chunkCount + " (" + count + " frames)";
                 int index = i;
 
-                threads[i] = new Thread(delegate()
+                threads[i] = new Thread(delegate ()
                 {
                     try
                     {
@@ -270,22 +264,22 @@ internal static class WebPTool
         }
     }
 
-    private static string BuildArguments(List<string> frames, string output, EncodeSettings settings)
+    private static string BuildArguments(List<StagedFrame> frames, string output, EncodeSettings settings)
     {
-        int quality = settings.Quality, method = settings.Method, duration = settings.Duration;
+        int quality = settings.Quality, method = settings.Method;
         StringBuilder args = new StringBuilder();
         args.Append("-loop 1 -min_size ");
 
-        foreach (string frame in frames)
+        foreach (StagedFrame frame in frames)
         {
             args.Append("-lossy -q ")
                 .Append(quality.ToString(CultureInfo.InvariantCulture))
                 .Append(" -m ")
                 .Append(method.ToString(CultureInfo.InvariantCulture))
                 .Append(" -d ")
-                .Append(duration.ToString(CultureInfo.InvariantCulture))
+                .Append(frame.DurationMs.ToString(CultureInfo.InvariantCulture))
                 .Append(" ")
-                .Append(WebPFrameFiles.QuoteArgument(Path.GetFileName(frame)))
+                .Append(WebPFrameFiles.QuoteArgument(Path.GetFileName(frame.FilePath)))
                 .Append(" ");
         }
 
@@ -293,28 +287,26 @@ internal static class WebPTool
         return args.ToString();
     }
 
-    private static bool VerifyOutput(string output)
+    private static bool VerifyOutput(string output, List<StagedFrame> frames)
     {
-        if (!File.Exists(output))
-        {
-            RelayDiagnostics.Error(
-                "img2webp returned success but did not create the output file: '" + output + "'.");
-            return false;
-        }
+        long length = File.Exists(output) ? new FileInfo(output).Length : -1;
 
-        FileInfo outputInfo = new FileInfo(output);
-        if (outputInfo.Length <= 0)
+        if (length < 0)
         {
-            RelayDiagnostics.Error("img2webp created an empty output file: '" + output + "'.");
+            RelayDiagnostics.Error($"img2webp returned success but did not create the output file: '{output}'.");
+        }
+        else if (length == 0)
+        {
+            RelayDiagnostics.Error($"img2webp created an empty output file: '{output}'.");
             SafeDelete(output);
-            return false;
+        }
+        else
+        {
+            RelayDiagnostics.Info($"WebP encode completed successfully. OutputBytes={length}, Output='{output}'.");
+            WebPAnimationCheck.CheckLength(output, frames);
         }
 
-        RelayDiagnostics.Info(
-            "WebP encode completed successfully. OutputBytes=" + outputInfo.Length +
-            ", Output='" + output + "'.");
-
-        return true;
+        return length > 0;
     }
 
 

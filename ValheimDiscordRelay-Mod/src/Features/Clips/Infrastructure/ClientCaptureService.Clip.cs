@@ -200,15 +200,16 @@ internal sealed partial class ClientCaptureService
         // Everything the worker thread needs is read here, on the main thread.
         string webhookUrl = ClipConfig.WebhookUrl.Value.Trim();
         int fps = Mathf.Clamp(ClientConfig.DeathVideoFps.Value, 20, 30);
+        int[] durations = PlanFrameDurations("Clip", selected, fps, end - start);
         string content = string.IsNullOrWhiteSpace(playerName) ? null : playerName + " saved a clip.";
 
         ThreadPool.QueueUserWorkItem(delegate
         {
             try
             {
-                List<string> staged = StageDeathFrames(selected, "clip-");
+                List<StagedFrame> staged = StageDeathFrames(selected, durations, "clip-");
                 ClipLog("Frame staging complete. Staged " + staged.Count + " of " + selected.Count + " frames.");
-                ProcessClipVideo(webhookUrl, content, fps, staged);
+                ProcessClipVideo(webhookUrl, content, staged);
             }
             catch (Exception ex)
             {
@@ -222,7 +223,7 @@ internal sealed partial class ClientCaptureService
     // Encode + upload (worker thread)
     // ---------------------------------------------------------------------------------------------------------
 
-    private void ProcessClipVideo(string webhookUrl, string content, int fps, List<string> frames)
+    private void ProcessClipVideo(string webhookUrl, string content, List<StagedFrame> frames)
     {
         string output = null;
         bool uploaded = false;
@@ -235,9 +236,9 @@ internal sealed partial class ClientCaptureService
                 return;
             }
 
-            frames.Sort(StringComparer.OrdinalIgnoreCase);
+            frames.Sort(StagedFrame.CompareByFilePath);
 
-            string outputDirectory = Path.GetDirectoryName(frames[0]);
+            string outputDirectory = Path.GetDirectoryName(frames[0].FilePath);
             if (string.IsNullOrWhiteSpace(outputDirectory))
                 outputDirectory = _encodingRootDirectory;
 
@@ -263,7 +264,7 @@ internal sealed partial class ClientCaptureService
                 ClipLog("WebP attempt " + (i + 1) + "/4: quality=" + qualities[i] + ", method=" + methods[i] + ".");
                 SafeDelete(output);
 
-                if (!WebPTool.EncodeAnimation(frames, output, fps, qualities[i], methods[i]))
+                if (!WebPTool.EncodeAnimation(frames, output, qualities[i], methods[i]))
                 {
                     ClipLog("WebP attempt " + (i + 1) + " failed during encoding.");
                     continue;
@@ -319,8 +320,8 @@ internal sealed partial class ClientCaptureService
 
             if (frames != null)
             {
-                foreach (string frame in frames)
-                    SafeDelete(frame);
+                foreach (StagedFrame frame in frames)
+                    SafeDelete(frame.FilePath);
 
                 DeleteClipStagingDirectory(frames);
             }
@@ -362,14 +363,14 @@ internal sealed partial class ClientCaptureService
         return response != null && response.StatusCode == HttpStatusCode.BadRequest;
     }
 
-    private void DeleteClipStagingDirectory(List<string> frames)
+    private void DeleteClipStagingDirectory(List<StagedFrame> frames)
     {
         try
         {
             if (frames.Count == 0)
                 return;
 
-            string stagingDirectory = Path.GetDirectoryName(frames[0]);
+            string stagingDirectory = Path.GetDirectoryName(frames[0].FilePath);
             if (!string.IsNullOrWhiteSpace(stagingDirectory) &&
                 Directory.Exists(stagingDirectory) &&
                 !string.IsNullOrWhiteSpace(_encodingRootDirectory) &&

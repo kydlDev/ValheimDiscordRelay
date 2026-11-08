@@ -19,4 +19,14 @@ internal static class RelayDiagnostics
     internal static void Error(string message) { ModLog.Error(message); }
 
     internal static void Error(string message, Exception ex) { ModLog.Error(message + Environment.NewLine + ex); }
+
+    /// <summary>
+    /// Compares a value with the one the code expects: inside the tolerance it is a debug line, outside it is a
+    /// <c>CHECK OFF</c> warning that is always written (see <c>ModLog.Check</c>).
+    /// </summary>
+    /// <returns>True when the value is inside the tolerance.</returns>
+    internal static bool Check(string what, double actual, double expected, double tolerance, string unit)
+    {
+        return ModLog.Check(what, actual, expected, tolerance, unit);
+    }
 }
