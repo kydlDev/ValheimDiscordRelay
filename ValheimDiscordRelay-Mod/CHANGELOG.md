@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.1
+
+**Client AND server must update together** (the mod's version check requires the same version on both).
+
+### Fixed
+- **Death, boss and clip videos played too fast.** The frames were captured at fewer frames per second than the configured `Video FPS` (it depends on the PC and on what the game is doing), but the video showed every frame for 1/FPS seconds, so an 8 s video could play in about 4 s. Every frame now keeps the time it was really captured at, so a video plays as long as the footage it holds. A short stall of the game inside a video is not replayed in full (a frame is never shown longer than half a second).
+- **The capture now reaches the configured frame rate more often.** The next frame is scheduled from the previous slot instead of from "now", and up to three frames can wait for the graphics card at once, so a capture no longer waits for the previous one to finish.
+
+### Changed
+- **The log says how fast a video was really captured**, for example `Captured 238 frames over 7.93 s = 29.9 fps (target 30 fps)`. When the real rate is more than 25 % below the setting, or the footage is more than 1 s shorter or longer than the settings ask for, a `CHECK OFF` warning is written (also with the debug log off), and the length of the finished WebP is checked against the plan. On a slow PC this tells you why a video looks choppy: lower `Video Resolution` or `Video FPS`.
+
 ## 2.0.0
 
 - Tested in game with the full TestLab suite (7 tests): 3 green runs in a row on 2026-11-05, plus the ecosystem run with all 12 KydlDev mods loaded together.
