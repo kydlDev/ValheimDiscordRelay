@@ -37,12 +37,11 @@ internal sealed partial class ClientCaptureService
     private int _bossEncodeHeight;
 
     private float _bossEngagedUntil = -1f;
-    private float _nextBossFrameTime;
     private float _bossDeathTime;
     private string _bossVideoAvatarUrl;
     private bool _warnedBossWebhookEmpty;
 
-    private volatile bool _bossFrameCaptureInProgress;
+    private readonly CaptureScheduler _bossScheduler = new();
     private volatile bool _bossRecording;
     private volatile bool _bossProcessing;
 
@@ -125,20 +124,16 @@ internal sealed partial class ClientCaptureService
             return;
         }
 
-        if (_bossFrameCaptureInProgress)
-            return;
-
         int fps = Mathf.Clamp(BossConfig.VideoFps.Value, 20, 30);
-        if (Time.unscaledTime < _nextBossFrameTime)
-            return;
 
-        _nextBossFrameTime = Time.unscaledTime + 1f / fps;
-        _host.StartCoroutine(CaptureBossFrame());
+        if (_bossScheduler.TryBegin(Time.unscaledTime, fps))
+            _host.StartCoroutine(CaptureBossFrame());
     }
 
     private IEnumerator CaptureBossFrame()
     {
-        _bossFrameCaptureInProgress = true;
+        // TickBossVideo has already counted this capture as in flight; it is released exactly once.
+        Action release = CreateSlotRelease(_bossScheduler);
         yield return new WaitForEndOfFrame();
 
         if (_bossPipeline == null)
@@ -152,11 +147,11 @@ internal sealed partial class ClientCaptureService
         _bossPipeline.CaptureAsync(
             width,
             height,
-            (rgb24, w, h) => OnBossFrameCaptured(rgb24, w, h, capturedAt),
-            () => { _bossFrameCaptureInProgress = false; });
+            (rgb24, w, h) => OnBossFrameCaptured(rgb24, w, h, capturedAt, release),
+            release);
     }
 
-    private void OnBossFrameCaptured(byte[] rgb24, int width, int height, float capturedAt)
+    private void OnBossFrameCaptured(byte[] rgb24, int width, int height, float capturedAt, Action release)
     {
         try
         {
@@ -193,7 +188,7 @@ internal sealed partial class ClientCaptureService
         }
         finally
         {
-            _bossFrameCaptureInProgress = false;
+            release();
         }
     }
 

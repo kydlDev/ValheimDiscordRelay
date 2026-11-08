@@ -31,7 +31,8 @@ internal sealed partial class ClientCaptureService
 
     private IEnumerator CaptureRollingFrame()
     {
-        _frameCaptureInProgress = true;
+        // Tick has already counted this capture as in flight; it is released exactly once, when it delivers or fails.
+        Action release = CreateSlotRelease(_rollingScheduler);
         yield return new WaitForEndOfFrame();
 
         int width, height;
@@ -48,8 +49,8 @@ internal sealed partial class ClientCaptureService
         _capturePipeline.CaptureAsync(
             width,
             height,
-            (rgb24, w, h) => OnRollingFrameCaptured(rgb24, w, h, capturedAt, pruneAfterCapture),
-            () => { _frameCaptureInProgress = false; });
+            (rgb24, w, h) => OnRollingFrameCaptured(rgb24, w, h, capturedAt, pruneAfterCapture, release),
+            release);
     }
 
     /// <summary>
@@ -60,7 +61,8 @@ internal sealed partial class ClientCaptureService
     /// <param name="height">Frame height in pixels.</param>
     /// <param name="capturedAt">Unscaled time at which the frame was captured.</param>
     /// <param name="pruneAfterCapture">Whether to prune old frames after appending this one.</param>
-    private void OnRollingFrameCaptured(byte[] rgb24, int width, int height, float capturedAt, bool pruneAfterCapture)
+    /// <param name="release">Frees the capture slot this frame used; called whether or not the frame could be stored.</param>
+    private void OnRollingFrameCaptured(byte[] rgb24, int width, int height, float capturedAt, bool pruneAfterCapture, Action release)
     {
         try
         {
@@ -92,7 +94,7 @@ internal sealed partial class ClientCaptureService
         }
         finally
         {
-            _frameCaptureInProgress = false;
+            release();
         }
     }
 

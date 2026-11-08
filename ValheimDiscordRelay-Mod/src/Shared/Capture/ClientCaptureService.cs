@@ -28,8 +28,7 @@ internal sealed partial class ClientCaptureService : IDisposable
     /// rolling frame buffer; it only stops a second death from starting a second video at the same time.
     /// </summary>
     private volatile bool _deathProcessing;
-    private volatile bool _frameCaptureInProgress;
-    private float _nextFrameTime;
+    private readonly CaptureScheduler _rollingScheduler = new();
     private float _deathTime;
     private string _deathPlayer;
     private string _deathMessage;
@@ -148,18 +147,13 @@ internal sealed partial class ClientCaptureService : IDisposable
         // running while any is in flight, so a boss kill (or second death) that lands during an upload still
         // has fresh frames to cut its clip from. Only the "recording" flags pause pruning, never capture.
         // It runs for death videos, and also when manual clips are ready (see RollingBufferWanted).
-        if (!RollingBufferWanted ||
-            _frameCaptureInProgress)
+        if (!RollingBufferWanted)
             return;
 
         int fps = Mathf.Clamp(ClientConfig.DeathVideoFps.Value, 20, 30);
-        float interval = 1f / fps;
 
-        if (Time.unscaledTime >= _nextFrameTime)
-        {
-            _nextFrameTime = Time.unscaledTime + interval;
+        if (_rollingScheduler.TryBegin(Time.unscaledTime, fps))
             _host.StartCoroutine(CaptureRollingFrame());
-        }
     }
 
     private void CleanupOldFiles()
