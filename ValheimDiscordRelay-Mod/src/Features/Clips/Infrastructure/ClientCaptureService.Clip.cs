@@ -115,6 +115,22 @@ internal sealed partial class ClientCaptureService
     // Recording window
     // ---------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Starts a clip exactly as its hotkey does (used by the in-game test hooks).
+    /// </summary>
+    /// <returns>True when a clip is now being recorded.</returns>
+    internal bool RequestClip()
+    {
+        if (!ClipConfig.Active)
+            return false;
+
+        BeginClip();
+        return _clipRecording;
+    }
+
+    /// <summary>True while a clip is being recorded, staged, encoded or sent.</summary>
+    internal bool ClipBusy => _clipRecording || _clipProcessing;
+
     private void BeginClip()
     {
         if (QuitRequested)

@@ -17,6 +17,7 @@
     <Compile Include="..\..\src\Shared\RelayDiagnostics.cs" Link="Mod\RelayDiagnostics.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Clips\Domain\FrameTiming.cs" Link="Mod\FrameTiming.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Clips\Domain\CaptureScheduler.cs" Link="Mod\CaptureScheduler.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\Clips\Domain\PlaybackReport.cs" Link="Mod\PlaybackReport.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Clips\Domain\CaptureRate.cs" Link="Mod\CaptureRate.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Clips\Domain\StagedFrame.cs" Link="Mod\StagedFrame.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Shared\Video\WebPAnimationInfo.cs" Link="Mod\WebPAnimationInfo.cs" Condition="'$(KydlQuality)' != 'true'" />

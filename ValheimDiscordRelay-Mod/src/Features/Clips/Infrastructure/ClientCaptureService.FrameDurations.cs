@@ -13,6 +13,12 @@ internal sealed partial class ClientCaptureService
     private const double FootageLengthToleranceSeconds = 1.0;
 
     /// <summary>
+    /// The playback report of the video that was planned last, or null before the first one. Read by the in-game test
+    /// hooks; set and read on the main thread.
+    /// </summary>
+    internal static PlaybackReport? LastPlaybackReport { get; private set; }
+
+    /// <summary>
     /// Works out how long each selected frame is shown and reports how fast the footage was captured. The capture rate
     /// is usually below the configured frame rate (it depends on the PC and on what the game is doing), so a clip must
     /// not assume that every frame is 1/fps apart.
@@ -40,6 +46,7 @@ internal sealed partial class ClientCaptureService
 
         CaptureRate rate = FrameTiming.MeasureRate(captureTimes, targetFps);
         long playbackMs = SumMilliseconds(durations);
+        LastPlaybackReport = new PlaybackReport(rate, playbackMs);
 
         RelayDiagnostics.Info(Invariant(
             $"[{label}] Captured {rate}; the clip plays {playbackMs / 1000d:0.00} s for {rate.SpanSeconds:0.00} s of footage (average frame {playbackMs / (double)count:0} ms)."));

@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using BepInEx.Bootstrap;
 using KydlCore.Common;
 using ValheimDiscordRelay.Bootstrap;
@@ -114,6 +114,48 @@ internal static class ModTestHooks
     {
         string url = System.Environment.GetEnvironmentVariable("VDR_TEST_WEBHOOK");
         return string.IsNullOrWhiteSpace(url) ? null : url.Trim();
+    }
+
+    /// <summary>Starts a clip exactly like its hotkey; 1 when it is being recorded, 0 when not (Clips off or no webhook).</summary>
+    [TestHook("valheimdiscordrelay.clip")]
+    static int Clip()
+    {
+        if (ValheimDiscordRelayPlugin.CaptureService == null) return 0;
+        return ValheimDiscordRelayPlugin.CaptureService.RequestClip() ? 1 : 0;
+    }
+
+    /// <summary>1 while a clip is being recorded, encoded or sent, else 0.</summary>
+    [TestHook("valheimdiscordrelay.clipBusy")]
+    static int ClipBusy()
+    {
+        if (ValheimDiscordRelayPlugin.CaptureService == null) return 0;
+        return ValheimDiscordRelayPlugin.CaptureService.ClipBusy ? 1 : 0;
+    }
+
+    /// <summary>For the video planned last: 1 when it plays in real time (within 10 % of its footage), 0 when not, -1 when no video was planned yet.</summary>
+    [TestHook("valheimdiscordrelay.videoPlaysInRealTime")]
+    static int VideoPlaysInRealTime()
+    {
+        Client.PlaybackReport? report = Client.ClientCaptureService.LastPlaybackReport;
+        if (!report.HasValue) return -1;
+        return report.Value.PlaysInRealTime(0.1d) ? 1 : 0;
+    }
+
+    /// <summary>For the video planned last: 1 when at least 75 % of the configured frame rate was really captured, 0 when not, -1 when no video was planned yet.</summary>
+    [TestHook("valheimdiscordrelay.videoCaptureRateOk")]
+    static int VideoCaptureRateOk()
+    {
+        Client.PlaybackReport? report = Client.ClientCaptureService.LastPlaybackReport;
+        if (!report.HasValue) return -1;
+        return report.Value.CapturedAtLeast(0.75d) ? 1 : 0;
+    }
+
+    /// <summary>The capture-rate line of the video planned last ("162 frames over 7.98 s = 20.2 fps (target 30 fps)"), or "none".</summary>
+    [TestHook("valheimdiscordrelay.videoCaptureRate")]
+    static string VideoCaptureRate()
+    {
+        Client.PlaybackReport? report = Client.ClientCaptureService.LastPlaybackReport;
+        return report.HasValue ? report.Value.Rate.ToString() : "none";
     }
 
     /// <summary>

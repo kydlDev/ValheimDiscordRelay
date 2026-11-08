@@ -1,0 +1,16 @@
+﻿{
+  "name": "clip-playback",
+  "description": "A clip plays in real time: the frames are encoded with their real capture times, so the finished clip is as long as the footage it holds, and the capture keeps at least 75 percent of the configured frame rate",
+  "timeout": 150,
+  "steps": [
+    { "do": "hook", "name": "valheimdiscordrelay.arena", "contains": "arena at", "label": "start on the arena spot" },
+    { "do": "wait", "seconds": 10 },
+    { "do": "hook", "name": "valheimdiscordrelay.clip", "expect": 1, "label": "clip started" },
+    { "do": "wait", "seconds": 40 },
+    { "do": "hook", "name": "valheimdiscordrelay.clipBusy", "expect": 0, "label": "clip finished" },
+    { "do": "hook", "name": "valheimdiscordrelay.videoCaptureRate", "contains": "target", "label": "capture rate was measured" },
+    { "do": "hook", "name": "valheimdiscordrelay.videoPlaysInRealTime", "expect": 1, "label": "clip plays in real time" },
+    { "do": "hook", "name": "valheimdiscordrelay.videoCaptureRateOk", "expect": 1, "label": "capture kept 75 percent of the configured rate" }
+  ],
+  "asserts": [ { "check": "noErrors", "source": "ValheimDiscordRelay" } ]
+}
