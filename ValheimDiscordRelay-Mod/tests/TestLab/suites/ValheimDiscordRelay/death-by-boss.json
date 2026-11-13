@@ -1,0 +1,321 @@
+{
+  "name": "death-by-boss",
+  "description": "Every boss kills the player; the death is reported as a boss kill",
+  "timeout": 480,
+  "steps": [
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "setConfig",
+      "values": {
+        "Player Deaths/Server - Webhook URL": "{{secret:VDR_TEST_WEBHOOK}}?wait=false",
+        "Player Deaths/Client - Video Enabled": "false"
+      }
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Eikthyr",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Eikthyr level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Eikthyr;level=1",
+      "notContains": "{",
+      "label": "Eikthyr level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "gd_king",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "gd_king level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=gd_king;level=1",
+      "notContains": "{",
+      "label": "gd_king level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Bonemass",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Bonemass level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Bonemass;level=1",
+      "notContains": "{",
+      "label": "Bonemass level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Dragon",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Dragon level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Dragon;level=1",
+      "notContains": "{",
+      "label": "Dragon level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "GoblinKing",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "GoblinKing level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=GoblinKing;level=1",
+      "notContains": "{",
+      "label": "GoblinKing level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "SeekerQueen",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "SeekerQueen level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=SeekerQueen;level=1",
+      "notContains": "{",
+      "label": "SeekerQueen level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Fader",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Fader level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Fader;level=1",
+      "notContains": "{",
+      "label": "Fader level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Death message sent to the death webhook",
+      "label": "a death message was sent to Discord",
+      "do": "check"
+    }
+  ],
+  "asserts": [
+    {
+      "check": "noErrors",
+      "source": "ValheimDiscordRelay"
+    }
+  ]
+}

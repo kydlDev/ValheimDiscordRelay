@@ -313,6 +313,7 @@ internal sealed partial class ClientCaptureService
                 url,
                 ClientTextUtils.SanitizeUsername(player),
                 content);
+            RelayDiagnostics.Info("[Death] Death message sent to the death webhook.");
         }
         catch (Exception ex)
         {

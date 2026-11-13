@@ -392,6 +392,15 @@ internal static partial class BossKillTracker
         BossInfo info;
         BossCatalog.TryGet(prefab, out info);
 
+        // The in-game chat line needs no webhook: it is the same kind of shout as a player's death.
+        if (BossConfig.GameChatEnabled != null && BossConfig.GameChatEnabled.Value && ValheimDiscordRelayPlugin.CaptureService != null)
+        {
+            string shoutName = info != null ? info.DisplayName : (hoverName.Length > 0 ? hoverName : BossCatalog.CleanPrefabName(prefab));
+            string shout = BossShoutQuotes.Pick(BossCatalog.CapitalizeFirst(shoutName));
+            RelayDiagnostics.Info("[Boss] Game chat message: '" + shout + "'.");
+            ValheimDiscordRelayPlugin.CaptureService.ScheduleGameChatShout(shout);
+        }
+
         // Start the video first: whether one is coming decides whether the announcement waits for it.
         // This client's own clip is always started; with Video Source = Last Attacker it is the fallback that is
         // dropped once the last attacker's game has taken the video over.

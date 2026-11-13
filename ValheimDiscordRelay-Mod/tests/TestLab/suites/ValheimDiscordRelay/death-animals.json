@@ -1,0 +1,447 @@
+{
+  "name": "death-animals",
+  "description": "Every animal kills the player (no star); the death is reported with that animal",
+  "timeout": 660,
+  "steps": [
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "setConfig",
+      "values": {
+        "Player Deaths/Server - Webhook URL": "{{secret:VDR_TEST_WEBHOOK}}?wait=false",
+        "Player Deaths/Client - Video Enabled": "false"
+      }
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Boar",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boar level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Boar;level=1",
+      "notContains": "{",
+      "label": "Boar level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Neck",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Neck level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Neck;level=1",
+      "notContains": "{",
+      "label": "Neck level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Wolf",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Wolf level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Wolf;level=1",
+      "notContains": "{",
+      "label": "Wolf level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Bat",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Bat level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Bat;level=1",
+      "notContains": "{",
+      "label": "Bat level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Lox",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Lox level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Lox;level=1",
+      "notContains": "{",
+      "label": "Lox level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Deathsquito",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Deathsquito level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Deathsquito;level=1",
+      "notContains": "{",
+      "label": "Deathsquito level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Volture",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Volture level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Volture;level=1",
+      "notContains": "{",
+      "label": "Volture level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Asksvin",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Asksvin level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Asksvin;level=1",
+      "notContains": "{",
+      "label": "Asksvin level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Leech",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Leech level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Leech;level=1",
+      "notContains": "{",
+      "label": "Leech level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Serpent",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Serpent level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Serpent;level=1",
+      "notContains": "{",
+      "label": "Serpent level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Death message sent to the death webhook",
+      "label": "a death message was sent to Discord",
+      "do": "check"
+    }
+  ],
+  "asserts": [
+    {
+      "check": "noErrors",
+      "source": "ValheimDiscordRelay"
+    }
+  ]
+}

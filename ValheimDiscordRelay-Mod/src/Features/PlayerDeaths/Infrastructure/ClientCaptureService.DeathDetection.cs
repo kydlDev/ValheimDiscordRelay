@@ -204,6 +204,13 @@ internal sealed partial class ClientCaptureService
     /// </summary>
     private const float DeathShoutDelaySeconds = 5f;
 
+    /// <summary>Says this text in the in-game chat after the same delay as a death shout, so it stays out of the recorded clip.</summary>
+    /// <param name="gameText">The text to say.</param>
+    internal void ScheduleGameChatShout(string gameText)
+    {
+        _host.StartCoroutine(SendDeathShoutDelayed(gameText));
+    }
+
     private IEnumerator SendDeathShoutDelayed(string gameText)
     {
         float sendAt = Time.unscaledTime + DeathShoutDelaySeconds;
@@ -216,6 +223,22 @@ internal sealed partial class ClientCaptureService
             yield break;
 
         ValheimDiscordRelayPlugin.SendDeathShout(gameText);
+    }
+
+    /// <summary>How many deaths this game session has reported (read by the in-game tests).</summary>
+    internal static int DeathCount { get; private set; }
+
+    /// <summary>The last reported death as "killer=Boar;level=2;boss=False;cause=;text=..." (read by the in-game tests).</summary>
+    internal static string LastDeathSummary { get; private set; } = string.Empty;
+
+    private static string DescribeForTests(DeathMessage message)
+    {
+        AttackerInfo killer = message == null ? null : message.Killer;
+        return "killer=" + (killer == null ? "none" : killer.PrefabName ?? killer.Name) +
+               ";level=" + (killer == null ? 0 : killer.Level) +
+               ";boss=" + (killer != null && killer.IsBoss) +
+               ";cause=" + (message == null ? string.Empty : message.CauseName) +
+               ";text=" + (message == null ? string.Empty : message.Game);
     }
 
     /// <summary>
@@ -238,6 +261,9 @@ internal sealed partial class ClientCaptureService
 
         RelayDiagnostics.Info(
             "Death detected. Player='" + playerName + "', Message='" + gameText + "'.");
+
+        DeathCount++;
+        LastDeathSummary = DescribeForTests(message);
 
         // Counted for the weekly report whatever the [Player Deaths] settings are (it has its own switches).
         AttackerInfo killer = message != null ? message.Killer : null;

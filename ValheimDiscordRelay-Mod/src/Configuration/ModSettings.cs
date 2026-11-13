@@ -224,6 +224,9 @@ internal static class ModSettings
         BossConfig.ClientEnabled = c.Bind("Boss Death", "Client - Enabled", true,
             "Take part in boss death announcements from this game: measure the damage you deal to bosses and record the boss death video when asked. " +
             "Turn off to opt out completely. (The server must also have [Boss Death] Enable on.)");
+        BossConfig.GameChatEnabled = c.Bind("Boss Death", "Client - Game Chat Message", true,
+            "Say the boss death in the in-game chat (a shout everybody on the server sees), even when no Discord webhook is set. " +
+            "Only the game that owns the boss when it dies sends it. Turn off to keep boss deaths out of the game chat.");
         BossConfig.VideoEnabled = c.Bind("Boss Death", "Client - Video Enabled", true,
             "Upload a short video of the moment the boss died. Only the client that records it (see Server - Video Source) needs this on.");
         BossConfig.VideoFps = c.Bind("Boss Death", "Client - Video FPS", 30, new ConfigDescription(

@@ -2,11 +2,15 @@
 
 ## Unreleased
 
+- A death or boss-kill quote is no longer repeated within the last 7 of the same kind.
+- New in-game TestLab suites: every mob (no star to 2 stars), 22 environment causes, a real 300 m fall and all 7 boss kills.
+
 ### New
 - **Many more death and boss quotes.** 15 new lines for every kind of creature death (animals, non-animals, environmental), for every boss kill message, for the message when a boss kills a player, and for the boss-death announcement (solo and party).
 - **Nine crush deaths now have their own lines** (16 each): falling tree, cart, boat, collapsing structure, stalagmite, drawbridge, turret, catapult and impact.
 - **Two new water categories** (15 lines each): dying while swimming, and dying in the boiling Ashlands sea.
 - The boss name in a boss-killed-you message is coloured on Discord like before.
+- **Boss deaths are now also said in the in-game chat**, with no Discord webhook needed (new `[Boss Death] Client - Game Chat Message`, on by default). Player deaths already did this.
 - In-game TestLab test `death-quotes` checks every crush and water kind builds its message from the right list.
 
 ## 2.0.1

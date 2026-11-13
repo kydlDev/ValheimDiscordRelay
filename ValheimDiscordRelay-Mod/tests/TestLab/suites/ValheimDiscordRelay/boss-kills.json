@@ -1,0 +1,260 @@
+{
+  "name": "boss-kills",
+  "description": "The player kills every boss with one hit; the mod detects the kill for each (and announces it when a webhook is set)",
+  "timeout": 480,
+  "steps": [
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "setConfig",
+      "values": {
+        "Player Deaths/Server - Webhook URL": "{{secret:VDR_TEST_WEBHOOK}}?wait=false",
+        "Player Deaths/Client - Video Enabled": "false",
+        "Boss Death/Server - Webhook URL": "{{secret:VDR_TEST_WEBHOOK}}?wait=false",
+        "Boss Death/Client - Video Enabled": "false"
+      }
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "Eikthyr"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Eikthyr: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='Eikthyr'",
+      "label": "Eikthyr: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "gd_king"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "gd_king: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='gd_king'",
+      "label": "gd_king: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "Bonemass"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Bonemass: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='Bonemass'",
+      "label": "Bonemass: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "Dragon"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Dragon: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='Dragon'",
+      "label": "Dragon: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "GoblinKing"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "GoblinKing: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='GoblinKing'",
+      "label": "GoblinKing: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "SeekerQueen"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "SeekerQueen: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='SeekerQueen'",
+      "label": "SeekerQueen: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killBoss",
+      "args": {
+        "prefab": "Fader"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Fader: killed by the player"
+    },
+    {
+      "do": "wait",
+      "seconds": 3
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death detected. Prefab='Fader'",
+      "label": "Fader: boss death detected",
+      "do": "check"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    }
+  ],
+  "asserts": [
+    {
+      "check": "noErrors",
+      "source": "ValheimDiscordRelay"
+    }
+  ]
+}

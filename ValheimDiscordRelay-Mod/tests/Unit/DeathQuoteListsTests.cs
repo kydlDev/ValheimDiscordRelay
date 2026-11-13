@@ -207,4 +207,41 @@ public class DeathQuoteListsTests
     {
         Assert.Throws<ArgumentException>(() => new QuotePool());
     }
+
+    [Test]
+    public void Pool_NeverRepeatsAQuoteWithinTheLastSevenPicks()
+    {
+        QuotePool pool = new QuotePool(Enumerable.Range(0, 16).Select(n => "quote " + n).ToArray());
+        var recent = new Queue<string>();
+        for (int i = 0; i < 3000; i++)
+        {
+            string quote = pool.Pick();
+            Assert.That(recent, Does.Not.Contain(quote), "pick " + i);
+            recent.Enqueue(quote);
+            if (recent.Count > 7)
+                recent.Dequeue();
+        }
+    }
+
+    [Test]
+    public void RecentPicker_InAShortList_KeepsOutEverythingButOne()
+    {
+        var picker = new RecentPicker();
+        var random = new System.Random(1);
+        var recent = new Queue<int>();
+        for (int i = 0; i < 1000; i++)
+        {
+            int index = picker.Next(5, random);
+            Assert.That(recent, Does.Not.Contain(index), "pick " + i);
+            recent.Enqueue(index);
+            if (recent.Count > 4)
+                recent.Dequeue();
+        }
+    }
+
+    [Test]
+    public void RecentPicker_WithOneEntry_AlwaysReturnsZero()
+    {
+        Assert.That(new RecentPicker().Next(1, new System.Random(1)), Is.EqualTo(0));
+    }
 }

@@ -1,0 +1,279 @@
+{
+  "name": "death-stars",
+  "description": "No star, one star and two stars: an animal and a non-animal kill the player at every level",
+  "timeout": 420,
+  "steps": [
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "setConfig",
+      "values": {
+        "Player Deaths/Server - Webhook URL": "{{secret:VDR_TEST_WEBHOOK}}?wait=false",
+        "Player Deaths/Client - Video Enabled": "false"
+      }
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Boar",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boar level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Boar;level=1",
+      "notContains": "{",
+      "label": "Boar level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Boar",
+        "level": 2
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boar level 2: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Boar;level=2",
+      "notContains": "{",
+      "label": "Boar level 2: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Boar",
+        "level": 3
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boar level 3: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Boar;level=3",
+      "notContains": "{",
+      "label": "Boar level 3: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Troll",
+        "level": 1
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Troll level 1: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Troll;level=1",
+      "notContains": "{",
+      "label": "Troll level 1: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Troll",
+        "level": 2
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Troll level 2: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Troll;level=2",
+      "notContains": "{",
+      "label": "Troll level 2: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerBy",
+      "args": {
+        "prefab": "Troll",
+        "level": 3
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Troll level 3: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=Troll;level=3",
+      "notContains": "{",
+      "label": "Troll level 3: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Death message sent to the death webhook",
+      "label": "a death message was sent to Discord",
+      "do": "check"
+    }
+  ],
+  "asserts": [
+    {
+      "check": "noErrors",
+      "source": "ValheimDiscordRelay"
+    }
+  ]
+}

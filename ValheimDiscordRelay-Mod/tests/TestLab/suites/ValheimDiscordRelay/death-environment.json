@@ -1,0 +1,929 @@
+{
+  "name": "death-environment",
+  "description": "Every environmental hit type (fall, drowning, Ashlands sea, crush kinds, fire, cold...) kills the player and is reported without a killer",
+  "timeout": 1380,
+  "steps": [
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "setConfig",
+      "values": {
+        "Player Deaths/Server - Webhook URL": "{{secret:VDR_TEST_WEBHOOK}}?wait=false",
+        "Player Deaths/Client - Video Enabled": "false"
+      }
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Fall"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Fall: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Fall: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Drowning"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Drowning: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Drowning: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Water"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Water: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Water: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "AshlandsOcean"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "AshlandsOcean: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "AshlandsOcean: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Tree"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Tree: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Tree: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Cart"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Cart: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Cart: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Boat"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boat: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Boat: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Structural"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Structural: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Structural: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Stalagtite"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Stalagtite: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Stalagtite: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "DrawBridge"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "DrawBridge: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "DrawBridge: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Turret"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Turret: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Turret: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Catapult"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Catapult: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Catapult: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Impact"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Impact: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Impact: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Burning"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Burning: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Burning: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Freezing"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Freezing: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Freezing: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Poisoned"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Poisoned: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Poisoned: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Smoke"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Smoke: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Smoke: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "EdgeOfWorld"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "EdgeOfWorld: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "EdgeOfWorld: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "CinderFire"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "CinderFire: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "CinderFire: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "AshlandsLava"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "AshlandsLava: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "AshlandsLava: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Incinerator"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Incinerator: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Incinerator: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "back on the arena spot"
+    },
+    {
+      "do": "wait",
+      "seconds": 2
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.killPlayerEnv",
+      "args": {
+        "hitType": "Self"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Self: killed"
+    },
+    {
+      "do": "wait",
+      "seconds": 16
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.playerAlive",
+      "expect": true,
+      "label": "respawned and ready"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.lastDeath",
+      "contains": "killer=none",
+      "notContains": "{",
+      "label": "Self: death message built"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.cleanup"
+    },
+    {
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Death message sent to the death webhook",
+      "label": "a death message was sent to Discord",
+      "do": "check"
+    }
+  ],
+  "asserts": [
+    {
+      "check": "noErrors",
+      "source": "ValheimDiscordRelay"
+    }
+  ]
+}

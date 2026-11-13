@@ -20,6 +20,9 @@ internal static class BossConfig
 
     internal static ConfigEntry<bool> Enabled;
     internal static ConfigEntry<bool> ClientEnabled;
+
+    /// <summary>Say the boss death in the in-game chat (needs no webhook).</summary>
+    internal static ConfigEntry<bool> GameChatEnabled;
     internal static ConfigEntry<string> WebhookUrl;
     internal static ConfigEntry<string> WebhookUsername;
     internal static ConfigEntry<string> VideoSource;

@@ -194,6 +194,7 @@ Clips use the frame rate and resolution of `[Player Deaths] Client - Video FPS` 
 | `Server - Webhook Username` | `Boss Death Announcement!` | Synced. Sender name of the embed and the video. |
 | `Server - Video Source` | `Boss Owner` | Synced. Whose game records the boss video: `Boss Owner` or `Last Attacker`. |
 | `Client - Enabled` | `true` | Take part in boss announcements from this game (damage measuring and video). |
+| `Client - Game Chat Message` | `true` | Say the boss death in the in-game chat, even with no webhook set (only the game that owns the boss sends it). |
 | `Client - Video Enabled` | `true` | Upload the boss video from this game. |
 | `Client - Video FPS`, `Client - Video Resolution` | `30`, `960x540` | Only used when `[Player Deaths] Client - Video Enabled` is off; otherwise the boss video reuses the death video's frames. |
 | `Client - Video Pre Duration`, `Client - Video Post Duration` | `4`, `4` | Seconds before / after the boss dies (2–4 each). |

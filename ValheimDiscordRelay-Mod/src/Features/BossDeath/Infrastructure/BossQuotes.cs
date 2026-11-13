@@ -83,8 +83,8 @@ internal static class BossQuotes
 
     private static readonly Random Rng = new(Guid.NewGuid().GetHashCode());
     private static readonly object RngLock = new();
-    private static int _lastSolo = -1;
-    private static int _lastParty = -1;
+    private static readonly Client.RecentPicker RecentSolo = new();
+    private static readonly Client.RecentPicker RecentParty = new();
 
     /// <summary>
     /// A random solo-kill message.
@@ -96,7 +96,7 @@ internal static class BossQuotes
     {
         string template;
         lock (RngLock)
-            template = Pick(Solo, ref _lastSolo);
+            template = Pick(Solo, RecentSolo);
 
         return Fill(template, boss, player, damage);
     }
@@ -111,22 +111,17 @@ internal static class BossQuotes
     {
         string template;
         lock (RngLock)
-            template = Pick(Party, ref _lastParty);
+            template = Pick(Party, RecentParty);
 
         return Fill(template, boss, player, damage);
     }
 
     /// <summary>
-    /// Picks a random entry, never the same one twice in a row (when there is more than one to choose from).
+    /// Picks a random entry that was not one of the last seven picked from this list.
     /// </summary>
-    private static string Pick(string[] quotes, ref int last)
+    private static string Pick(string[] quotes, Client.RecentPicker recent)
     {
-        int index = Rng.Next(quotes.Length);
-        if (quotes.Length > 1 && index == last)
-            index = (index + 1 + Rng.Next(quotes.Length - 1)) % quotes.Length;
-
-        last = index;
-        return quotes[index];
+        return quotes[recent.Next(quotes.Length, Rng)];
     }
 
     private static string Fill(string template, string boss, string player, string damage)

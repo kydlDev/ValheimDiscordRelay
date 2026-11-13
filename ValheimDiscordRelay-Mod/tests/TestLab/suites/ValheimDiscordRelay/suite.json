@@ -297,6 +297,12 @@
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
                                 "section":  "Boss Death",
+                                "key":  "Client - Game Chat Message",
+                                "value":  "true"
+                            },
+                            {
+                                "guid":  "com.kydldev.ValheimDiscordRelay",
+                                "section":  "Boss Death",
                                 "key":  "Server - Webhook URL",
                                 "value":  ""
                             },
@@ -497,6 +503,13 @@
                   "screenshot-kinds",
                   "clip-playback",
                   "discord-live",
-                  "death-quotes"
+                  "death-quotes",
+                  "death-animals",
+                  "death-creatures",
+                  "death-stars",
+                  "death-by-boss",
+                  "death-environment",
+                  "death-real-fall",
+                  "boss-kills"
               ]
 }

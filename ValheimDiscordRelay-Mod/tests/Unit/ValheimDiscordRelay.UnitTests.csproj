@@ -15,6 +15,7 @@
     <Compile Include="..\..\src\Features\Chat\Domain\ChatRateLimiter.cs" Link="Mod\ChatRateLimiter.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\BossDeath\Domain\BossCatalog.cs" Link="Mod\BossCatalog.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\BossDeath\Infrastructure\BossQuotes.cs" Link="Mod\BossQuotes.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\RecentPicker.cs" Link="Mod\RecentPicker.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\PlayerDeaths\Domain\QuotePool.cs" Link="Mod\QuotePool.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\PlayerDeaths\Domain\DeathQuoteKind.cs" Link="Mod\DeathQuoteKind.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\PlayerDeaths\Domain\DeathQuoteLists.cs" Link="Mod\DeathQuoteLists.cs" Condition="'$(KydlQuality)' != 'true'" />

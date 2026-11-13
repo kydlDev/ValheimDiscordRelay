@@ -202,11 +202,11 @@ internal static class DeathQuotes
     private static readonly Random Rng = new(Guid.NewGuid().GetHashCode());
     private static readonly object RngLock = new();
 
-    private static int _lastAnimalNoStar = -1;
-    private static int _lastAnimalOneStar = -1;
-    private static int _lastAnimalMultiStar = -1;
-    private static int _lastNonAnimal = -1;
-    private static int _lastEnvironmental = -1;
+    private static readonly RecentPicker RecentAnimalNoStar = new();
+    private static readonly RecentPicker RecentAnimalOneStar = new();
+    private static readonly RecentPicker RecentAnimalMultiStar = new();
+    private static readonly RecentPicker RecentNonAnimal = new();
+    private static readonly RecentPicker RecentEnvironmental = new();
 
     /// <summary>
     /// True if the prefab name belongs to an animal. Valheim's "(Clone)" suffix is ignored.
@@ -233,13 +233,13 @@ internal static class DeathQuotes
         lock (RngLock)
         {
             if (!attacker.IsAnimal)
-                template = Pick(NonAnimal, ref _lastNonAnimal);
+                template = Pick(NonAnimal, RecentNonAnimal);
             else if (attacker.StarCount <= 0)
-                template = Pick(AnimalNoStar, ref _lastAnimalNoStar);
+                template = Pick(AnimalNoStar, RecentAnimalNoStar);
             else if (attacker.StarCount == 1)
-                template = Pick(AnimalOneStar, ref _lastAnimalOneStar);
+                template = Pick(AnimalOneStar, RecentAnimalOneStar);
             else
-                template = Pick(AnimalMultiStar, ref _lastAnimalMultiStar);
+                template = Pick(AnimalMultiStar, RecentAnimalMultiStar);
         }
 
         return new DeathMessage(
@@ -256,7 +256,7 @@ internal static class DeathQuotes
     {
         string template;
         lock (RngLock)
-            template = Pick(Environmental, ref _lastEnvironmental);
+            template = Pick(Environmental, RecentEnvironmental);
 
         return Fill(template, player, null, cause, false);
     }
@@ -294,16 +294,11 @@ internal static class DeathQuotes
     }
 
     /// <summary>
-    /// Picks a random entry, never the same one twice in a row (when there is more than one to choose from).
+    /// Picks a random entry that was not one of the last seven picked from this list.
     /// </summary>
-    private static string Pick(string[] quotes, ref int last)
+    private static string Pick(string[] quotes, RecentPicker recent)
     {
-        int index = Rng.Next(quotes.Length);
-        if (quotes.Length > 1 && index == last)
-            index = (index + 1 + Rng.Next(quotes.Length - 1)) % quotes.Length;
-
-        last = index;
-        return quotes[index];
+        return quotes[recent.Next(quotes.Length, Rng)];
     }
 
     private static string Fill(string template, string player, AttackerInfo attacker, string cause, bool discord)

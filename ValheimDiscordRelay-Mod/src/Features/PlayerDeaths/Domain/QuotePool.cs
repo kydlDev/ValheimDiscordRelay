@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ValheimDiscordRelay.Client;
 
 /// <summary>
-/// A list of quote templates that hands out a random one, never the same one twice in a row (when there is more than one).
+/// A list of quote templates that hands out a random one, never one of the last seven.
 /// Pure logic, no game types: the lists themselves are in <see cref="CrushQuotes"/>, <see cref="WaterQuotes"/> and
 /// <see cref="BossKillerQuotes"/>.
 /// </summary>
@@ -14,7 +14,7 @@ internal sealed class QuotePool
     private static readonly object RngLock = new();
 
     private readonly string[] _quotes;
-    private int _last = -1;
+    private readonly RecentPicker _recent = new();
 
     /// <param name="quotes">The templates, with the placeholders their list documents. At least one.</param>
     internal QuotePool(params string[] quotes)
@@ -29,18 +29,11 @@ internal sealed class QuotePool
     internal IReadOnlyList<string> Quotes => _quotes;
 
     /// <summary>
-    /// A random template. The one that was handed out last time is skipped, so the same joke never comes twice in a row.
+    /// A random template that was not one of the last seven handed out, so the same joke does not come back too soon.
     /// </summary>
     internal string Pick()
     {
         lock (RngLock)
-        {
-            int index = Rng.Next(_quotes.Length);
-            if (_quotes.Length > 1 && index == _last)
-                index = (index + 1 + Rng.Next(_quotes.Length - 1)) % _quotes.Length;
-
-            _last = index;
-            return _quotes[index];
-        }
+            return _quotes[_recent.Next(_quotes.Length, Rng)];
     }
 }
