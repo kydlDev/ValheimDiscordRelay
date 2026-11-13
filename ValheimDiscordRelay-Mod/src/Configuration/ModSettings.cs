@@ -176,7 +176,7 @@ internal static class ModSettings
             "Announce this player's deaths: the in-game death shout and the Discord death message. Turn off to keep your deaths out of chat and Discord. " +
             "(The server must also have [Player Deaths] Enable on.)");
         Client.ClientConfig.DeathVideoEnabled = c.Bind("Player Deaths", "Client - Video Enabled", true,
-            "Create a short WebP video around the local player's death. When off, the death message is still sent, without a video. " +
+            "Create a short WebP video around the local player's death. Turn off to send only the death message, with no video. " +
             "This also keeps the rolling frame buffer that boss death videos can reuse (see [Boss Death]).");
         Client.ClientConfig.DeathVideoFps = c.Bind("Player Deaths", "Client - Video FPS", 30, new ConfigDescription(
             "Frames per second for death videos.",
@@ -228,7 +228,7 @@ internal static class ModSettings
             "Say the boss death in the in-game chat (a shout everybody on the server sees), even when no Discord webhook is set. " +
             "Only the game that owns the boss when it dies sends it. Turn off to keep boss deaths out of the game chat.");
         BossConfig.VideoEnabled = c.Bind("Boss Death", "Client - Video Enabled", true,
-            "Upload a short video of the moment the boss died. Only the client that records it (see Server - Video Source) needs this on.");
+            "Upload a short video of the moment the boss died. Turn off to post only the \"has fallen\" message, with no video. Only the client that records it (see Server - Video Source) needs this on.");
         BossConfig.VideoFps = c.Bind("Boss Death", "Client - Video FPS", 30, new ConfigDescription(
             "Frames per second for the boss death video. Only used when [Player Deaths] Client - Video Enabled is off; otherwise the boss video reuses the death video frames and its FPS.",
             new AcceptableValueList<int>(20, 30)));

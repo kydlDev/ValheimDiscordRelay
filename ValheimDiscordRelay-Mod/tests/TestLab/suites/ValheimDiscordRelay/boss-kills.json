@@ -1,6 +1,6 @@
 {
   "name": "boss-kills",
-  "description": "The player kills every boss with one hit; the mod detects the kill for each (and announces it when a webhook is set)",
+  "description": "The player kills every boss with one hit (video off); the mod detects the kill, shouts it in game chat and queues the message-only announcement for each",
   "timeout": 480,
   "steps": [
     {
@@ -43,6 +43,13 @@
       "do": "check"
     },
     {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='Eikthyr'",
+      "label": "Eikthyr: message sent without a video"
+    },
+    {
       "do": "hook",
       "name": "valheimdiscordrelay.cleanup"
     },
@@ -75,6 +82,13 @@
       "text": "Boss death detected. Prefab='gd_king'",
       "label": "gd_king: boss death detected",
       "do": "check"
+    },
+    {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='gd_king'",
+      "label": "gd_king: message sent without a video"
     },
     {
       "do": "hook",
@@ -111,6 +125,13 @@
       "do": "check"
     },
     {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='Bonemass'",
+      "label": "Bonemass: message sent without a video"
+    },
+    {
       "do": "hook",
       "name": "valheimdiscordrelay.cleanup"
     },
@@ -143,6 +164,13 @@
       "text": "Boss death detected. Prefab='Dragon'",
       "label": "Dragon: boss death detected",
       "do": "check"
+    },
+    {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='Dragon'",
+      "label": "Dragon: message sent without a video"
     },
     {
       "do": "hook",
@@ -179,6 +207,13 @@
       "do": "check"
     },
     {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='GoblinKing'",
+      "label": "GoblinKing: message sent without a video"
+    },
+    {
       "do": "hook",
       "name": "valheimdiscordrelay.cleanup"
     },
@@ -213,6 +248,13 @@
       "do": "check"
     },
     {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='SeekerQueen'",
+      "label": "SeekerQueen: message sent without a video"
+    },
+    {
       "do": "hook",
       "name": "valheimdiscordrelay.cleanup"
     },
@@ -245,6 +287,13 @@
       "text": "Boss death detected. Prefab='Fader'",
       "label": "Fader: boss death detected",
       "do": "check"
+    },
+    {
+      "do": "check",
+      "check": "logContains",
+      "source": "ValheimDiscordRelay",
+      "text": "Boss death: prefab='Fader'",
+      "label": "Fader: message sent without a video"
     },
     {
       "do": "hook",

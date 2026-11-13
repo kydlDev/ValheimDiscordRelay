@@ -177,7 +177,7 @@ Clips use the frame rate and resolution of `[Player Deaths] Client - Video FPS` 
 | `Enable` | `true` | Synced. Turn off to disable death messages, shouts and videos for every player. |
 | `Server - Webhook URL` | empty | Synced. Webhook for death messages and videos. |
 | `Client - Enabled` | `true` | Announce this player's deaths (in-game shout and Discord message). |
-| `Client - Video Enabled` | `true` | Record a death video. When off, the message is still sent, without a video. It also keeps the frame buffer that boss videos and clips reuse. |
+| `Client - Video Enabled` | `true` | Record a death video. **Turn it off to send only the death message, with no video** (for players who cannot or do not want to record). It also keeps the frame buffer that boss videos and clips reuse. |
 | `Client - Video FPS` | `30` | `20` or `30`. Use `20` if your game runs slower than 30 FPS. |
 | `Client - Video Resolution` | `960x540` | `480x270`, `640x360` or `960x540`. |
 | `Client - Video Pre Duration`, `Client - Video Post Duration` | `4`, `4` | Seconds before / after the death (2–4 each). |
@@ -195,7 +195,7 @@ Clips use the frame rate and resolution of `[Player Deaths] Client - Video FPS` 
 | `Server - Video Source` | `Boss Owner` | Synced. Whose game records the boss video: `Boss Owner` or `Last Attacker`. |
 | `Client - Enabled` | `true` | Take part in boss announcements from this game (damage measuring and video). |
 | `Client - Game Chat Message` | `true` | Say the boss death in the in-game chat, even with no webhook set (only the game that owns the boss sends it). |
-| `Client - Video Enabled` | `true` | Upload the boss video from this game. |
+| `Client - Video Enabled` | `true` | Upload the boss video from this game. Turn it off to post only the "has fallen" message, with no video (for PCs that cannot or should not record). |
 | `Client - Video FPS`, `Client - Video Resolution` | `30`, `960x540` | Only used when `[Player Deaths] Client - Video Enabled` is off; otherwise the boss video reuses the death video's frames. |
 | `Client - Video Pre Duration`, `Client - Video Post Duration` | `4`, `4` | Seconds before / after the boss dies (2–4 each). |
 

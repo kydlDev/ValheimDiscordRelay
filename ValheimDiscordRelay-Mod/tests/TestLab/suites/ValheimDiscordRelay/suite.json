@@ -4,7 +4,7 @@
     "requireMods":  [
                         {
                             "guid":  "com.kydldev.ValheimDiscordRelay",
-                            "minVersion":  "2.0.1"
+                            "minVersion":  "2.1.0"
                         },
                         {
                             "guid":  "com.kydldev.KydlCore",
