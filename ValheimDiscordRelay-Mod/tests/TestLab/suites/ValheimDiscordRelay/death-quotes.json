@@ -1,0 +1,349 @@
+{
+  "name": "death-quotes",
+  "description": "Every crush / water death kind builds its message through the real DeathMessageBuilder from its own quote list, with the player name filled in",
+  "timeout": 60,
+  "steps": [
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.arena",
+      "contains": "arena at",
+      "label": "start on the arena spot"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Tree"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Tree quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Tree"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Tree quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Tree"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Tree quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Cart"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Cart quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Cart"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Cart quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Cart"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Cart quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Boat"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boat quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Boat"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boat quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Boat"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Boat quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Structure"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Structure quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Structure"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Structure quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Structure"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Structure quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Stalagmite"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Stalagmite quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Stalagmite"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Stalagmite quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Stalagmite"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Stalagmite quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "DrawBridge"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "DrawBridge quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "DrawBridge"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "DrawBridge quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "DrawBridge"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "DrawBridge quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Turret"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Turret quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Turret"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Turret quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Turret"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Turret quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Catapult"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Catapult quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Catapult"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Catapult quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Catapult"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Catapult quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Impact"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Impact quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Impact"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Impact quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Impact"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Impact quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Swimming"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Swimming quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Swimming"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Swimming quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "Swimming"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "Swimming quote 3"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "AshlandsSea"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "AshlandsSea quote 1"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "AshlandsSea"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "AshlandsSea quote 2"
+    },
+    {
+      "do": "hook",
+      "name": "valheimdiscordrelay.deathQuote",
+      "args": {
+        "kind": "AshlandsSea"
+      },
+      "contains": "PASS",
+      "notContains": "FAIL",
+      "label": "AshlandsSea quote 3"
+    }
+  ],
+  "asserts": [
+    {
+      "check": "noErrors",
+      "source": "ValheimDiscordRelay"
+    }
+  ]
+}

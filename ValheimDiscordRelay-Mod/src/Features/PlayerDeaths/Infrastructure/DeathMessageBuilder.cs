@@ -54,12 +54,11 @@ internal sealed class DeathMessage
 /// </summary>
 internal static class DeathMessageBuilder
 {
-    private const string StarGlyph = "\u2B50"; // ⭐
     private const string Esc = "\u001b";
 
     /// <summary>Discord ANSI code used for coloured (tagged) enemy names: dim red.</summary>
-    private const string AnsiColorStart = Esc + "[2;31m";
-    private const string AnsiReset = Esc + "[0m";
+    internal const string AnsiColorStart = Esc + "[2;31m";
+    internal const string AnsiReset = Esc + "[0m";
 
     /// <summary>
     /// How long after the last attributed hit a damage-over-time death (burning, poison) is still
@@ -302,27 +301,11 @@ internal static class DeathMessageBuilder
 
     /// <summary>
     /// Boss message. Also used for creatures whose display name carries a colour tag, which Valheim
-    /// uses for its special/boss-like enemies.
+    /// uses for its special/boss-like enemies. The quotes are in <see cref="BossKillerQuotes"/>.
     /// </summary>
     private static DeathMessage BuildBossMessage(string player, AttackerInfo boss)
     {
-        string name = boss.Name;
-        int stars = boss.StarCount;
-
-        // In-game chat: plain name only. Chat shows rich-text tags literally, so none are emitted.
-        string gameStars = stars == 0
-            ? string.Empty
-            : " (" + stars + (stars == 1 ? " star)" : " stars)");
-        string game = name + gameStars + " managed to get one over " + player + ". " +
-                      name + " roams triumphant, for now...You got this!";
-
-        // Discord: colour-tagged names get the ANSI colour (only takes effect inside an ansi code block).
-        string coloredName = boss.HasColorTag ? AnsiColorStart + name + AnsiReset : name;
-        string discordStars = stars == 0 ? string.Empty : " " + boss.BuildStars(StarGlyph);
-        string discord = coloredName + discordStars + " managed to get one over " + player + ". " +
-                         coloredName + " roams triumphant, for now...You got this!";
-
-        return new DeathMessage(game, discord);
+        return DeathQuotes.PickBoss(player, boss);
     }
 
     /// <summary>
@@ -396,46 +379,54 @@ internal static class DeathMessageBuilder
         }
     }
 
+    /// <summary>
+    /// Which death has a quote list of its own: crushing by a tree, cart, boat, structure, stone spike, drawbridge, turret,
+    /// catapult or impact, and dying in water (ordinary or the boiling Ashlands sea). Null for every other hit type.
+    /// </summary>
+    private static DeathQuoteKind? QuoteKindOf(HitData.HitType type)
+    {
+        switch (type)
+        {
+            case HitData.HitType.Tree: return DeathQuoteKind.Tree;
+            case HitData.HitType.Cart: return DeathQuoteKind.Cart;
+            case HitData.HitType.Boat: return DeathQuoteKind.Boat;
+            case HitData.HitType.Structural: return DeathQuoteKind.Structure;
+            case HitData.HitType.Stalagtite: return DeathQuoteKind.Stalagmite;
+            case HitData.HitType.DrawBridge: return DeathQuoteKind.DrawBridge;
+            case HitData.HitType.Turret: return DeathQuoteKind.Turret;
+            case HitData.HitType.Catapult: return DeathQuoteKind.Catapult;
+            case HitData.HitType.Impact: return DeathQuoteKind.Impact;
+            case HitData.HitType.Drowning:
+            case HitData.HitType.Water:
+                return DeathQuoteKind.Swimming;
+            case HitData.HitType.AshlandsOcean: return DeathQuoteKind.AshlandsSea;
+            default: return null;
+        }
+    }
+
     private static string ResolveEnvironmentalDeath(HitData hit, string player)
     {
         if (hit == null)
             return null;
 
+        DeathQuoteKind? kind = QuoteKindOf(hit.m_hitType);
+        if (kind.HasValue)
+            return DeathQuotes.PickKind(player, kind.Value);
+
         switch (hit.m_hitType)
         {
-            case HitData.HitType.Drowning:
             case HitData.HitType.Burning:
             case HitData.HitType.Freezing:
             case HitData.HitType.Poisoned:
-            case HitData.HitType.Water:
             case HitData.HitType.Smoke:
             case HitData.HitType.EdgeOfWorld:
             case HitData.HitType.CinderFire:
-            case HitData.HitType.AshlandsOcean:
             case HitData.HitType.AshlandsLava:
             case HitData.HitType.Incinerator:
             case HitData.HitType.Fall:
             case HitData.HitType.Self:
                 return DeathQuotes.PickEnvironmental(player, DescribeCause(hit.m_hitType));
 
-            case HitData.HitType.Tree:
-                return player + " got crushed by a falling tree.";
-            case HitData.HitType.Cart:
-                return player + " got crushed by a cart.";
-            case HitData.HitType.Boat:
-                return player + " got crushed by a boat.";
-            case HitData.HitType.Structural:
-                return player + " got crushed by a collapsing structure.";
-            case HitData.HitType.Stalagtite:
-                return player + " got crushed by a stalagmite.";
-            case HitData.HitType.DrawBridge:
-                return player + " got crushed by a drawbridge.";
-            case HitData.HitType.Turret:
-                return player + " got crushed by a turret.";
-            case HitData.HitType.Catapult:
-                return player + " got crushed by a catapult.";
-            case HitData.HitType.Impact:
-                return player + " got crushed by an impact.";
             default:
                 return null;
         }
@@ -485,15 +476,12 @@ internal static class DeathMessageBuilder
     {
         switch (type)
         {
-            case HitData.HitType.Drowning: return "drowning";
             case HitData.HitType.Burning: return "burning";
             case HitData.HitType.Freezing: return "freezing";
             case HitData.HitType.Poisoned: return "poisoning";
-            case HitData.HitType.Water: return "a swim gone wrong";
             case HitData.HitType.Smoke: return "smoke inhalation";
             case HitData.HitType.EdgeOfWorld: return "the edge of the world";
             case HitData.HitType.CinderFire: return "cinder fire";
-            case HitData.HitType.AshlandsOcean: return "taking a dip in the Ashlands ocean";
             case HitData.HitType.AshlandsLava: return "taking a dip in lava";
             case HitData.HitType.Incinerator: return "getting incinerated";
             case HitData.HitType.Fall: return "falling";

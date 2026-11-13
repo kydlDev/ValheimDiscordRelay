@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### New
+- **Many more death and boss quotes.** 15 new lines for every kind of creature death (animals, non-animals, environmental), for every boss kill message, for the message when a boss kills a player, and for the boss-death announcement (solo and party).
+- **Nine crush deaths now have their own lines** (16 each): falling tree, cart, boat, collapsing structure, stalagmite, drawbridge, turret, catapult and impact.
+- **Two new water categories** (15 lines each): dying while swimming, and dying in the boiling Ashlands sea.
+- The boss name in a boss-killed-you message is coloured on Discord like before.
+- In-game TestLab test `death-quotes` checks every crush and water kind builds its message from the right list.
+
 ## 2.0.1
 
 **Client AND server must update together** (the mod's version check requires the same version on both).

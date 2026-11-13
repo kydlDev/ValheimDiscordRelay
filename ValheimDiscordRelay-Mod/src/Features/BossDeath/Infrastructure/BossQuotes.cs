@@ -15,6 +15,9 @@ namespace ValheimDiscordRelay.Server;
 /// </summary>
 internal static class BossQuotes
 {
+    /// <summary>The closing paragraph shared by the solo quotes added later (the older ones carry it in their own text).</summary>
+    private const string SoloThanks = "\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.";
+
     private static readonly string[] Solo =
     {
         "{Boss} has been defeated! Turns out it was no match for one moderately competent Viking.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
@@ -27,7 +30,22 @@ internal static class BossQuotes
         "{Boss} has fallen! Unfortunately, so has your excuse for not helping the team.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "Solo boss kill unlocked. Achievement: Couldn\u2019t Find Anyone to Help.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "Against all odds, and apparently against all common sense, you killed {Boss}.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
-        "{Boss}, a boss? Nah. This lone wolf made it look easy.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it."
+        "{Boss}, a boss? Nah. This lone wolf made it look easy.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
+        "{Boss} is down, and nobody helped. Not even a little bit." + SoloThanks,
+        "One Viking, one boss, zero witnesses worth mentioning. {Boss} has been slain." + SoloThanks,
+        "{Boss} has been defeated single-handedly. The legends write themselves." + SoloThanks,
+        "Lone Viking energy at its finest: {Boss} is dead and the credit is entirely yours." + SoloThanks,
+        "{Boss} fell to one very determined Viking. The rest of the server is now feeling underqualified." + SoloThanks,
+        "{Boss} has been slain alone. Odin raises a horn, and nobody else was invited." + SoloThanks,
+        "You faced {Boss} without a party and won. Questionable planning, undeniable result." + SoloThanks,
+        "{Boss} is dead. The group chat is going to hear about this for weeks." + SoloThanks,
+        "A solo victory over {Boss}! The bards are tuning their instruments, reluctantly." + SoloThanks,
+        "{Boss} never saw it coming, mostly because nobody else was there to warn it." + SoloThanks,
+        "{Boss} has been beaten one-on-one. The word \"teamwork\" has been quietly removed from the report." + SoloThanks,
+        "Single-handed, unassisted, slightly unhinged: {Boss} has fallen." + SoloThanks,
+        "{Boss} did not fall to an army. It fell to one Viking with a bad attitude." + SoloThanks,
+        "{Boss} is no more, and you did not need anybody's help. Show-off." + SoloThanks,
+        "The trophy is yours and only yours. {Boss} has been taken down solo." + SoloThanks
     };
 
     private static readonly string[] Party =
@@ -42,7 +60,22 @@ internal static class BossQuotes
         "{Boss} has fallen! {Player} topped the damage charts with {Damage}. Somewhere, the other Vikings are furiously checking their excuses.",
         "Boss defeated! {Player} delivered {Damage} damage and carried the party straight into Valhalla. Please collect your complimentary ego boost at the door.",
         "{Boss} is dead! Congratulations to everyone involved \u2014 especially {Player}, who apparently decided {Damage} damage was a reasonable amount of violence.",
-        "You are stronger together, {Boss} had no chance against such a strong team. {Player} managed to do {Damage} to {Boss}."
+        "You are stronger together, {Boss} had no chance against such a strong team. {Player} managed to do {Damage} to {Boss}.",
+        "{Boss} has fallen! {Player} led the charge with {Damage} damage, and everyone else made it a party.",
+        "Teamwork wins again! {Boss} is dead, with {Player} on top of the charts at {Damage} damage.",
+        "{Boss} faced a whole group and lost. {Player} dealt {Damage} damage and gets the bragging rights.",
+        "The Vikings stand victorious over {Boss}! Top damage: {Player} with {Damage}. Everyone else: you were also there.",
+        "{Boss} has been taken down together! {Player} contributed {Damage} damage and will not shut up about it.",
+        "A group effort, a fallen {Boss}, and {Player} sitting on {Damage} damage. Fair is fair, though.",
+        "{Boss} did not stand a chance against the whole crew. {Player} hit hardest at {Damage} damage.",
+        "Victory over {Boss}! {Player} topped the damage table with {Damage}. The rest handled morale.",
+        "{Boss} is dead and the party is intact. {Player} deserves a toast for {Damage} damage.",
+        "The group has done it: {Boss} is down! {Player} did {Damage} damage, which is the number to argue about.",
+        "{Boss} has fallen to a coordinated effort. {Player} led with {Damage} damage; the others led with enthusiasm.",
+        "Together you prevailed over {Boss}. Top spot goes to {Player} with {Damage} damage. Argue amongst yourselves.",
+        "{Boss} lost to a crowd, and {Player}'s {Damage} damage made sure of it.",
+        "Many Vikings, one dead {Boss}. {Player} put in {Damage} damage to make it official.",
+        "{Boss} has been defeated! {Player} delivered {Damage} damage, and the rest of you delivered company."
     };
 
     // One pass over the template, so a player name that happens to contain "{Damage}" is never substituted again.

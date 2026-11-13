@@ -29,7 +29,6 @@ The plugin is a single DLL. It contains a server part and a client part; each si
 - [Security and privacy](#security-and-privacy)
 - [Performance](#performance)
 - [Logs and troubleshooting](#logs-and-troubleshooting)
-- [Building from source](#building-from-source)
 - [Credits and licence](#credits-and-licence)
 
 ## What it can do
@@ -292,8 +291,6 @@ Both need `[Player Deaths] Enable` and `Client - Enabled` on. Without a webhook 
 
 **Quitting mid-upload.** If you quit the game while a death video is still being prepared, the encoder is stopped and the death message is sent at once with a line saying you quit before the video finished.
 
-All death quotes are in `Client/DeathQuotes.cs` and the boss/crushing sentences in `Client/DeathMessageBuilder.cs`; edit them there if you build the mod yourself.
-
 ### Death videos and the death camera
 
 When the local player dies, the game records the configured time before and after the death and uploads it as an animated WebP, directly from the client, together with the death message. The attachment is named `<player>-death-<time>.webp`.
@@ -504,17 +501,16 @@ Everything is written to `BepInEx/cache/ValheimDiscordRelay.log` (kept for 24 ho
 
 Every screenshot, death, boss and report event writes a line to the log (for example `[Report] Death reported ...`), which is the first place to look. Set `[General] Server - Log Successful Sends = true` to log every delivery too.
 
-## Building from source
-
-- Layout: `src/Bootstrap`, `Core`, `Configuration`, `Features/<Feature>`, `Shared`, `Presentation`, `Integrations/Harmony`, `Testing`; tests in `tests/` (unit, integration, TestLab suites). Details: `docs/Architecture.md`.
-- `ValheimDiscordRelay.csproj` (.NET Framework 4.8) takes the shared settings from `Claude\shared\Kydl.Mod.props`; game and BepInEx assemblies come from the shared reference folder. The DLL ends up in `assets/`.
-- The embedded video encoder in `WebP/EmbeddedWebP/` is downloaded by the build itself when it is missing (`WebP/prepare-webp.ps1`, official libwebp, SHA-256 checked; this is why the first build needs internet access; `-p:KydlSkipWebP=true` skips it and builds without clip support).
-- The quote lists live in `src/Features/PlayerDeaths/Infrastructure/DeathQuotes.cs` and `src/Features/BossDeath/Infrastructure/BossQuotes.cs`; the boss list in `src/Features/BossDeath/Domain/BossCatalog.cs`.
-- Tests: `dotnet test tests/Unit`, `dotnet test tests/Integration`; the in-game suites run with DrakesTestLab (`tests/TestLab/suites`).
-- See `CHANGELOG.md` for what changed in each version.
-
 ## Credits and licence
 
 I made this mod because I wanted something I could not find in the other available mods. It might not be perfect, but it has worked in my tests and I hope it works for you too. Please report any issues.
 
 The mod bundles a copy of [ServerSync](https://github.com/blaxxun-boop/ServerSync) (Copyright 2021 Tykea; permission notice in `Common/ServerSync/LICENSE.txt`), with local changes for the strict version check described in that file's header, and the official libwebp `img2webp` encoder from Google's WebP project.
+
+---
+
+![KydlDev](https://raw.githubusercontent.com/kydlDev/.github/main/branding/KydlDev-banner-960x240.png)
+
+## Get help and stay in touch
+Questions, bug reports, ideas or mod requests? Come say hi in the **KydlDev Discord**: **https://discord.gg/tX2CcTNC4W**
+Everyone is welcome, and it is the quickest way to reach me. Source code and issues: https://github.com/kydlDev

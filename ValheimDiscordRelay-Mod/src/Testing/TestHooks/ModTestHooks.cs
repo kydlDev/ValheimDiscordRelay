@@ -196,4 +196,40 @@ internal static class ModTestHooks
             return "error: " + ex.Message;
         }
     }
+
+    /// <summary>
+    /// Builds the death message for a hit of this type through the real DeathMessageBuilder.GetDeathMessage and checks it is one of the
+    /// quotes of the matching list. kind: Tree, Cart, Boat, Structure, Stalagmite, DrawBridge, Turret, Catapult, Impact, Swimming, AshlandsSea.
+    /// Returns "PASS: text" or "FAIL: reason".
+    /// </summary>
+    [TestHook("valheimdiscordrelay.deathQuote")]
+    static string DeathQuote(string kind)
+    {
+        HitData.HitType type;
+        switch (kind)
+        {
+            case "Tree": type = HitData.HitType.Tree; break;
+            case "Cart": type = HitData.HitType.Cart; break;
+            case "Boat": type = HitData.HitType.Boat; break;
+            case "Structure": type = HitData.HitType.Structural; break;
+            case "Stalagmite": type = HitData.HitType.Stalagtite; break;
+            case "DrawBridge": type = HitData.HitType.DrawBridge; break;
+            case "Turret": type = HitData.HitType.Turret; break;
+            case "Catapult": type = HitData.HitType.Catapult; break;
+            case "Impact": type = HitData.HitType.Impact; break;
+            case "Swimming": type = HitData.HitType.Drowning; break;
+            case "AshlandsSea": type = HitData.HitType.AshlandsOcean; break;
+            default: return "FAIL: unknown kind " + kind;
+        }
+
+        Client.DeathQuoteKind quoteKind = (Client.DeathQuoteKind)System.Enum.Parse(typeof(Client.DeathQuoteKind), kind);
+        Client.DeathMessage message = Client.DeathMessageBuilder.GetDeathMessage(new HitData { m_hitType = type }, "Tester", null);
+        if (message == null || string.IsNullOrEmpty(message.Game)) return "FAIL: no message for " + type;
+        if (message.Game.Contains("{")) return "FAIL: unfilled placeholder: " + message.Game;
+
+        foreach (string quote in Client.DeathQuoteLists.For(quoteKind).Quotes)
+            if (quote.Replace("{Player.name}", "Tester") == message.Game) return "PASS: " + message.Game;
+
+        return "FAIL: not from the " + kind + " list (live last hit overrides?): " + message.Game;
+    }
 }

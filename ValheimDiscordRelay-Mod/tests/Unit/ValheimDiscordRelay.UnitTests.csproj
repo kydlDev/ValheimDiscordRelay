@@ -14,6 +14,13 @@
     <Compile Include="..\..\src\Features\Chat\Domain\DiscordNameFallback.cs" Link="Mod\DiscordNameFallback.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Chat\Domain\ChatRateLimiter.cs" Link="Mod\ChatRateLimiter.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\BossDeath\Domain\BossCatalog.cs" Link="Mod\BossCatalog.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\BossDeath\Infrastructure\BossQuotes.cs" Link="Mod\BossQuotes.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\QuotePool.cs" Link="Mod\QuotePool.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\DeathQuoteKind.cs" Link="Mod\DeathQuoteKind.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\DeathQuoteLists.cs" Link="Mod\DeathQuoteLists.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\CrushQuotes.cs" Link="Mod\CrushQuotes.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\WaterQuotes.cs" Link="Mod\WaterQuotes.cs" Condition="'$(KydlQuality)' != 'true'" />
+    <Compile Include="..\..\src\Features\PlayerDeaths\Domain\BossKillerQuotes.cs" Link="Mod\BossKillerQuotes.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Shared\RelayDiagnostics.cs" Link="Mod\RelayDiagnostics.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Clips\Domain\FrameTiming.cs" Link="Mod\FrameTiming.cs" Condition="'$(KydlQuality)' != 'true'" />
     <Compile Include="..\..\src\Features\Clips\Domain\CaptureScheduler.cs" Link="Mod\CaptureScheduler.cs" Condition="'$(KydlQuality)' != 'true'" />
