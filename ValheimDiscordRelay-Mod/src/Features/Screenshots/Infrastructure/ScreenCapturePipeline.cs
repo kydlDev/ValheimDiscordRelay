@@ -91,12 +91,17 @@ internal sealed class ScreenCapturePipeline : IDisposable
     /// </param>
     internal void CaptureAsync(int targetWidth, int targetHeight, Action<byte[], int, int> onComplete, Action onFailure, ReadbackStyle style = ReadbackStyle.Rgb24)
     {
+        // CaptureScreenshotIntoRenderTexture copies the ACTIVE render target when one is set, and Graphics.Blit leaves its destination active.
+        // So: capture from the real screen (active = null), and give the previous target back afterwards. Without the restore our 960x402 fit
+        // texture stayed active and another mod's capture in the same frame got it (KydlTools GameProbe, 2026-11-13: a third of its shots).
+        RenderTexture previousActive = RenderTexture.active;
         try
         {
             bool forceBlit = style == ReadbackStyle.Rgb24ViaBlit;
             bool nativeRgba = style == ReadbackStyle.NativeRgba32;
 
             EnsureFullResTexture();
+            RenderTexture.active = null;
             ScreenCapture.CaptureScreenshotIntoRenderTexture(_fullResTexture);
 
             int fullWidth = _fullResTexture.width;
@@ -143,6 +148,10 @@ internal sealed class ScreenCapturePipeline : IDisposable
         {
             RelayDiagnostics.Error("Screen capture failed.", ex);
             onFailure?.Invoke();
+        }
+        finally
+        {
+            RenderTexture.active = previousActive;
         }
     }
 
@@ -401,14 +410,20 @@ internal sealed class ScreenCapturePipeline : IDisposable
     /// </summary>
     internal void WarmUp()
     {
+        RenderTexture previousActive = RenderTexture.active;
         try
         {
             EnsureFullResTexture();
+            RenderTexture.active = null;   // capture the real screen, not a target someone left active (see CaptureAsync)
             ScreenCapture.CaptureScreenshotIntoRenderTexture(_fullResTexture);
         }
         catch (Exception ex)
         {
             RelayDiagnostics.Warning("Screenshot warm-up capture failed: " + ex.Message);
+        }
+        finally
+        {
+            RenderTexture.active = previousActive;
         }
     }
 
