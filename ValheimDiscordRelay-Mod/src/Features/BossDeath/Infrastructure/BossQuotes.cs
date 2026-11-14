@@ -28,7 +28,7 @@ internal static class BossQuotes
         "A solo kill?! Incredible. We\u2019ll notify the bards immediately.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "You actually killed it alone. I had money on \u2018dies horribly.\u2019\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "{Boss} has fallen! Unfortunately, so has your excuse for not helping the team.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
-        "Solo boss kill unlocked. Achievement: Couldn\u2019t Find Anyone to Help.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
+        "Solo boss kill unlocked. Achievement: Couldn\u2019t find anyone to help.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "Against all odds, and apparently against all common sense, you killed {Boss}.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "{Boss}, a boss? Nah. This lone wolf made it look easy.\n\nGood job, {Player}! You've somehow managed to deal {Damage} damage to it.",
         "{Boss} is down, and nobody helped. Not even a little bit." + SoloThanks,
