@@ -228,7 +228,12 @@ internal static class ModTestHooks
         if (message.Game.Contains("{")) return "FAIL: unfilled placeholder: " + message.Game;
 
         foreach (string quote in Client.DeathQuoteLists.For(quoteKind).Quotes)
-            if (quote.Replace("{Player.name}", "Tester") == message.Game) return "PASS: " + message.Game;
+            if (quote.Replace("{Player.name}", "Tester") == message.Game)
+            {
+                // The quote text is only logged: a quote may contain a word like "failed", which the test step's notContains FAIL would read as a failure.
+                ModLog.Info("[Test] deathQuote " + kind + ": " + message.Game);
+                return "PASS: the " + kind + " message comes from its list";
+            }
 
         return "FAIL: not from the " + kind + " list (live last hit overrides?): " + message.Game;
     }
