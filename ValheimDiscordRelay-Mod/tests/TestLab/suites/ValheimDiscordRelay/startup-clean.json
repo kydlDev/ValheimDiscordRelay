@@ -6,8 +6,8 @@
     { "do": "hook", "name": "valheimdiscordrelay.arena", "contains": "arena at", "label": "start on the arena spot" },
     { "do": "wait", "seconds": 6 },
     { "do": "hook", "name": "valheimdiscordrelay.selftest", "contains": "PASS", "notContains": "FAIL", "label": "InGameTests" },
-    { "do": "hook", "name": "valheimdiscordrelay.configEntries", "min": 60 },
-    { "do": "hook", "name": "valheimdiscordrelay.enabled", "min": 1 }
+    { "do": "check", "check": "hook", "name": "valheimdiscordrelay.configEntries", "min": 60, "label": "at least 60 config entries" },
+    { "do": "check", "check": "hook", "name": "valheimdiscordrelay.enabled", "min": 1, "label": "the mod is enabled" }
   ],
   "asserts": [ { "check": "noErrors", "source": "ValheimDiscordRelay" } ]
 }

@@ -197,6 +197,9 @@ internal static class ModTestHooks
         }
     }
 
+    /// <summary>The game's own record of the last hit on a character (read by the death message builder).</summary>
+    private static readonly HarmonyLib.AccessTools.FieldRef<Character, HitData> LastHit = HarmonyLib.AccessTools.FieldRefAccess<Character, HitData>("m_lastHit");
+
     /// <summary>
     /// Builds the death message for a hit of this type through the real DeathMessageBuilder.GetDeathMessage and checks it is one of the
     /// quotes of the matching list. kind: Tree, Cart, Boat, Structure, Stalagmite, DrawBridge, Turret, Catapult, Impact, Swimming, AshlandsSea.
@@ -223,7 +226,16 @@ internal static class ModTestHooks
         }
 
         Client.DeathQuoteKind quoteKind = (Client.DeathQuoteKind)System.Enum.Parse(typeof(Client.DeathQuoteKind), kind);
-        Client.DeathMessage message = Client.DeathMessageBuilder.GetDeathMessage(new HitData { m_hitType = type }, "Tester", null);
+        // The builder reads the live player's Character.m_lastHit first (final at a real death). Here the player is alive and may still carry
+        // an old hit from an earlier test (2026-11-14: a Fall hit left by the ComfortMagicBubbles suite in the same session made every Tree quote
+        // fail), so that hit is set aside while the quote is built and put back afterwards.
+        Player player = Player.m_localPlayer;
+        HitData kept = player != null ? LastHit(player) : null;
+        if (player != null) LastHit(player) = null;
+        Client.DeathMessage message;
+        try { message = Client.DeathMessageBuilder.GetDeathMessage(new HitData { m_hitType = type }, "Tester", null); }
+        finally { if (player != null) LastHit(player) = kept; }
+        ModLog.Verbose("[Test] deathQuote " + kind + ": the player's own last hit (" + (kept == null ? "none" : kept.m_hitType.ToString()) + ") was set aside while building it");
         if (message == null || string.IsNullOrEmpty(message.Game)) return "FAIL: no message for " + type;
         if (message.Game.Contains("{")) return "FAIL: unfilled placeholder: " + message.Game;
 

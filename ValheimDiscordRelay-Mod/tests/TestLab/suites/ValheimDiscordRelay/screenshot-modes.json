@@ -5,7 +5,7 @@
   "steps": [
     { "do": "hook", "name": "valheimdiscordrelay.arena", "contains": "arena at", "label": "start on the arena spot" },
     { "do": "wait", "seconds": 8 },
-    { "do": "hook", "name": "valheimdiscordrelay.playerRenderers", "min": 1, "label": "player visible before" },
+    { "do": "check", "check": "hook", "name": "valheimdiscordrelay.playerRenderers", "min": 1, "label": "player visible before" },
     { "do": "hook", "name": "valheimdiscordrelay.screenshot", "args": { "mode": 0 }, "expect": 1, "label": "normal" },
     { "do": "wait", "seconds": 8 },
     { "do": "hook", "name": "valheimdiscordrelay.screenshotRunning", "expect": 0 },
@@ -17,7 +17,7 @@
     { "do": "wait", "seconds": 8 },
     { "do": "hook", "name": "valheimdiscordrelay.screenshotRunning", "expect": 0 },
     { "do": "hook", "name": "valheimdiscordrelay.hudHidden", "expect": 0, "label": "HUD back after no-HUD-no-player" },
-    { "do": "hook", "name": "valheimdiscordrelay.playerRenderers", "min": 1, "label": "player back" }
+    { "do": "check", "check": "hook", "name": "valheimdiscordrelay.playerRenderers", "min": 1, "label": "player back" }
   ],
   "asserts": [ { "check": "noErrors", "source": "ValheimDiscordRelay" } ]
 }

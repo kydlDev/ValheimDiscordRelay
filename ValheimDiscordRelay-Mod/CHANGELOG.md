@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.0
+
+**Client AND server must update together** (the mod's version check requires the same version on both).
+
+### Fixed
+- Test suite: `death-quotes` no longer depends on what ran before it in the same game session. The check now sets the player's own last hit aside while it builds each quote (an old Fall hit from an earlier test made every Tree quote fail). The death messages players see are unchanged.
+- Test suite: when the player does not respawn after a test death, the log now names what the game's respawn is waiting for (the objects near the spawn point without an instance).
+- Test suite: four minimum checks in `startup-clean` and `screenshot-modes` (config entries, mod enabled, player visible) were silently ignored by DrakesTestLab; they are real checks now.
+
 ## 2.1.0
 
 **Client AND server must update together** (the mod's version check requires the same version on both).

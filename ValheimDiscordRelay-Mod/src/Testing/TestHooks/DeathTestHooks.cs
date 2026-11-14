@@ -69,7 +69,11 @@ internal static class DeathTestHooks
     static bool PlayerAlive()
     {
         Player player = Player.m_localPlayer;
-        if (player == null) return false;
+        if (player == null)
+        {
+            LogRespawnBlockers();
+            return player != null;
+        }
 
         if (_struckId != 0)
         {
@@ -108,6 +112,45 @@ internal static class DeathTestHooks
     }
 
     private static float _readySince = -1f;
+
+    /// <summary>Seconds without a player after a test death before the respawn wait is a warning (a normal respawn takes about 10-15 s).</summary>
+    private const float RespawnWarnSeconds = 20f;
+
+    /// <summary>
+    /// While there is no local player after a test death: the game respawns only when ZNetScene.IsAreaReady(spawn point) is true, i.e. every
+    /// saved object in the spawn zone and its 8 neighbours has a live instance. Logs (every 5 s) the objects there WITHOUT one - the ones the
+    /// respawn waits for (2026-11-14: VDR after ComfortMagicBubbles in one session never respawned).
+    /// </summary>
+    private static void LogRespawnBlockers()
+    {
+        if (Time.unscaledTime < _nextStateLog || ZoneSystem.instance == null || ZDOMan.instance == null || ZNetScene.instance == null) return;
+        _nextStateLog = Time.unscaledTime + 5f;
+        if (!ZoneSystem.instance.GetLocationIcon(Game.instance != null ? Game.instance.m_StartLocation : "StartTemple", out Vector3 spawn))
+        {
+            ModLog.Warn("[Test] no local player, and the start location has no icon - the game cannot find a spawn point");
+            return;
+        }
+        var zdos = new System.Collections.Generic.List<ZDO>();
+        Vector2s zone = ZoneSystem.GetZone(spawn);
+        for (int x = -1; x <= 1; x++)
+            for (int y = -1; y <= 1; y++)
+                ZDOMan.instance.FindSectorObjects(new Vector2s((short)(zone.x + x), (short)(zone.y + y)), new SimulationDistance(0, 0), zdos);
+        var missing = new System.Collections.Generic.Dictionary<string, int>();
+        foreach (ZDO zdo in zdos)
+        {
+            if (zdo == null || ZNetScene.instance.FindInstance(zdo) != null) continue;
+            GameObject prefab = ZNetScene.instance.GetPrefab(zdo.GetPrefab());
+            string name = (prefab != null ? prefab.name : "hash " + zdo.GetPrefab()) + (zdo.Persistent ? "" : " (not persistent)");
+            missing[name] = (missing.TryGetValue(name, out int n) ? n : 0) + 1;
+        }
+        var parts = new System.Collections.Generic.List<string>();
+        foreach (var kv in missing) parts.Add(kv.Key + " x" + kv.Value);
+        float since = Time.unscaledTime - _struckAt;
+        string line = "[Test] no local player " + since.ToString("0") + " s after the strike; spawn point " + spawn.ToString("F0") + ", area ready "
+            + ZNetScene.instance.IsAreaReady(spawn) + "; " + zdos.Count + " saved object(s) around it, without an instance: " + (parts.Count == 0 ? "none" : string.Join(", ", parts.ToArray()));
+        // a normal respawn (death animation + loading) takes about 10-15 s; only a longer wait is unexpected
+        if (since >= RespawnWarnSeconds) ModLog.Warn(line); else ModLog.Verbose(line);
+    }
 
     private static float _nextStateLog;
 
