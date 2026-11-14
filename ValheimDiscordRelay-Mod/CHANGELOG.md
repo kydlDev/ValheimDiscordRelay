@@ -16,7 +16,7 @@
 - The boss name in a boss-killed-you message is coloured on Discord like before.
 
 ### Tests
-- New in-game TestLab tests: every mob kills the player (no star, 1 star, 2 stars), 22 environment causes, a real 300 m fall, boss attackers, and the player killing all 7 bosses. Each checks that the mod reported the death or kill and sent the message.
+- New in-game TestLab tests: every mob kills the player (no star, 1 star, 2 stars), 22 environment causes (including fall damage), boss attackers, and the player killing all 7 bosses. Each checks that the mod reported the death or kill and sent the message.
 
 ## 2.0.1
 

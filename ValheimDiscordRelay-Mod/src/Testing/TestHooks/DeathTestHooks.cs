@@ -64,21 +64,6 @@ internal static class DeathTestHooks
         return "PASS: hit sent to " + prefab + " (health " + boss.GetHealth() + ")";
     }
 
-    /// <summary>Lifts the player this many metres into the air with the god mode off, so the real fall damage can kill.</summary>
-    [TestHook("valheimdiscordrelay.dropPlayer")]
-    static string DropPlayer(float meters)
-    {
-        Player player = Player.m_localPlayer;
-        if (player == null || player.IsDead()) return "FAIL: no living local player";
-
-        player.SetGodMode(false);
-        StopFlying(player);
-        player.SetHealth(player.GetMaxHealth());
-        MarkStruck(player);
-        player.transform.position += Vector3.up * meters;
-        return "PASS: lifted by " + meters + " m";
-    }
-
     /// <summary>True when a living local player exists (after the respawn).</summary>
     [TestHook("valheimdiscordrelay.playerAlive")]
     static bool PlayerAlive()
@@ -103,6 +88,26 @@ internal static class DeathTestHooks
 
         return ready;
     }
+
+    /// <summary>1 when a living local player exists after the respawn, otherwise 0 (for a "wait until" step, which compares numbers).</summary>
+    [TestHook("valheimdiscordrelay.playerReady")]
+    static int PlayerReady()
+    {
+        // The respawn is not over the moment a new player exists: the cutscene can start a moment later and ignores hits.
+        // So the player must stay ready for a few seconds in a row.
+        if (!PlayerAlive())
+        {
+            _readySince = -1f;
+            return 0;
+        }
+
+        if (_readySince < 0f)
+            _readySince = Time.unscaledTime;
+
+        return Time.unscaledTime - _readySince >= 4f ? 1 : 0;
+    }
+
+    private static float _readySince = -1f;
 
     private static float _nextStateLog;
 
@@ -134,6 +139,7 @@ internal static class DeathTestHooks
     {
         _struckId = player.GetInstanceID();
         _struckAt = Time.unscaledTime;
+        _readySince = -1f;
     }
 
     private static Character Spawn(string prefab, int level, Vector3 position)

@@ -32,7 +32,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -73,7 +78,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -114,7 +124,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -155,7 +170,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -196,7 +216,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -237,7 +262,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -278,7 +308,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -319,7 +354,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -360,7 +400,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -401,7 +446,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -442,7 +492,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -483,7 +538,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -524,7 +584,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -565,7 +630,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -606,7 +676,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -647,7 +722,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -688,7 +768,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -729,7 +814,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -770,7 +860,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -811,7 +906,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -852,7 +952,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
@@ -893,7 +998,12 @@
     },
     {
       "do": "wait",
-      "seconds": 16
+      "until": {
+        "check": "hook",
+        "name": "valheimdiscordrelay.playerReady",
+        "expect": 1
+      },
+      "timeout": 60
     },
     {
       "do": "hook",
