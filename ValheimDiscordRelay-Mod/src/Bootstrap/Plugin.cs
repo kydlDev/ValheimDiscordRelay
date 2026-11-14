@@ -26,7 +26,7 @@ public sealed class ValheimDiscordRelayPlugin : BaseUnityPlugin
 {
     public const string ModGuid = "com.kydldev.ValheimDiscordRelay";   // also the config file name: com.kydldev.ValheimDiscordRelay.cfg
     public const string ModName = "ValheimDiscordRelay";
-    public const string ModVersion = "2.2.0";
+    public const string ModVersion = "2.1.0";
 
     /// <summary>
     /// Names what is special about this build, so a log can be matched to the code that produced it even when the
