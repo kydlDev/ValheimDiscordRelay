@@ -13,6 +13,14 @@
 - Test suite: when the player does not respawn after a test death, the log now names what the game's respawn is waiting for (the objects near the spawn point without an instance).
 - Test suite: four minimum checks in `startup-clean` and `screenshot-modes` (config entries, mod enabled, player visible) were silently ignored by DrakesTestLab; they are real checks now.
 
+### Testing
+- Unit tests: 327 passed. Integration tests: 76 passed.
+- Property-based tests (FsCheck, included in the unit tests above): 4 property checks with generated inputs.
+- Coverage of the testable code: 98.6%. Mutation testing (Stryker): 98.7% of the mutants are caught by the tests.
+- Performance benchmarks (BenchmarkDotNet): 4.
+- Static analysis (SonarQube): no Medium or High issues.
+- In game with DrakesTestLab: the full suite of 15 tests per run, run 3 times in a row on the release build, all green (the release requirement).
+
 ## 2.1.0
 
 **Client AND server must update together** (the mod's version check requires the same version on both).
