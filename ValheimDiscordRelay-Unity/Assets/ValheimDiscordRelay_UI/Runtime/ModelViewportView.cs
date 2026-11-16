@@ -30,8 +30,8 @@ namespace ValheimDiscordRelay.Ui
             if (scene == null)
             {
                 frame.style.justifyContent = Justify.Center; frame.style.alignItems = Align.Center;
-                frame.Add(UiKit.Label(title ?? "", UiKit.SectionSize, UiKit.TextDim, true));
-                frame.Add(UiKit.Label(unavailable ?? "", UiKit.FontSize, UiKit.TextDim));
+                frame.Add(UiKit.TextLabel(title ?? "", TextRole.SectionMuted));
+                frame.Add(UiKit.TextLabel(unavailable ?? "", TextRole.Note));
                 UiLog.Verbose("ModelViewportView: no 3D scene, showing the title '" + title + "' only");
                 return frame;
             }
@@ -65,12 +65,12 @@ namespace ValheimDiscordRelay.Ui
                 _image.style.left = 0; _image.style.top = 0; _image.style.right = 0; _image.style.bottom = 0;
                 frame.Add(_image);
 
-                var name = UiKit.Label(title ?? "", UiKit.SectionSize, UiKit.Gold, true);
+                var name = UiKit.TextLabel(title ?? "", TextRole.Section);
                 name.style.position = Position.Absolute; name.style.left = 10; name.style.top = 6;
                 name.pickingMode = PickingMode.Ignore;
                 frame.Add(name);
 
-                var hintLabel = UiKit.Label(hint ?? "", UiKit.SmallSize, UiKit.TextDim);
+                var hintLabel = UiKit.TextLabel(hint ?? "", TextRole.SmallNote);
                 hintLabel.style.position = Position.Absolute; hintLabel.style.left = 10; hintLabel.style.bottom = 8;
                 hintLabel.pickingMode = PickingMode.Ignore;
                 frame.Add(hintLabel);

@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|
 | Loads with exact KydlCore, no errors | - | ManifestTests, ArchitectureRulesTests | startup-clean | - | Automated |
 | Config layout, server-only settings | TunableTests | SettingsTests, ServerOnlySettingsTests | startup-clean | - | Automated |
-| Eight feature switches, EnableAll | FunctionsTests | - | feature-toggle | - | Automated |
+| Eight feature switches, Enable mod | FunctionsTests | - | feature-toggle | - | Automated |
 | KY hub tabs | - | - | hub-page | hub-look | Automated + Manual |
 | Screenshot kinds, webhook per kind, F6 buttons | - | - | screenshot-modes, screenshot-kinds, hub-screenshot-button | discord-look | Automated + Manual |
 | Chat names, name fallback | DiscordNameFallbackTests | - | discord-live | discord-look | Automated |

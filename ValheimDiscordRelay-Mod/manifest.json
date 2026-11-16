@@ -1,11 +1,11 @@
 {
   "name": "ValheimDiscordRelay",
-  "version_number": "2.1.0",
+  "version_number": "2.1.1",
   "website_url": "",
   "description": "Relay Valheim chat and shouts to Discord via webhooks, with client screenshots, hotkey video clips, automatic player death and boss death videos plus server lifecycle and intercepted player arrival-leaving notifications.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2351",
     "ValheimModding-Jotunn-2.30.2",
-    "KydlDev-KydlCore-1.1.0"
+    "KydlDev-KydlCore-1.1.1"
   ]
 }

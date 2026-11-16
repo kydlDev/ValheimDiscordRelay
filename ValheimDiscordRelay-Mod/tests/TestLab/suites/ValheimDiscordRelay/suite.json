@@ -1,21 +1,21 @@
 {
     "name":  "ValheimDiscordRelay",
-    "description":  "ValheimDiscordRelay: starts clean, every feature starts and stops with its own Enable switch (EnableAll stops all), the Settings and Screenshots tabs are in the KY hub, the three screenshot kinds work, live Discord webhook (KydlCore D-084: every mod ships a suite)",
+    "description":  "ValheimDiscordRelay: starts clean, every feature starts and stops with its own Enable switch (Enable mod stops all), the Settings and Screenshots tabs are in the KY hub, the three screenshot kinds work, live Discord webhook (KydlCore D-084: every mod ships a suite)",
     "requireMods":  [
                         {
                             "guid":  "com.kydldev.ValheimDiscordRelay",
-                            "minVersion":  "2.1.0"
+                            "minVersion":  "2.1.1"
                         },
                         {
                             "guid":  "com.kydldev.KydlCore",
-                            "minVersion":  "1.1.0"
+                            "minVersion":  "1.1.1"
                         }
                     ],
     "configOverrides":  [
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
                                 "section":  "General",
-                                "key":  "EnableAll",
+                                "key":  "Enable mod",
                                 "value":  "true"
                             },
                             {
@@ -38,8 +38,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Chat",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Chat",
                                 "value":  "true"
                             },
                             {
@@ -110,8 +110,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Screenshots",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Screenshots",
                                 "value":  "true"
                             },
                             {
@@ -182,8 +182,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Clips",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Clips",
                                 "value":  "true"
                             },
                             {
@@ -224,8 +224,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Player Deaths",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Player Deaths",
                                 "value":  "true"
                             },
                             {
@@ -290,8 +290,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Boss Death",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Boss Death",
                                 "value":  "true"
                             },
                             {
@@ -356,8 +356,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Server Notifications",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Server Notifications",
                                 "value":  "true"
                             },
                             {
@@ -398,8 +398,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Player Notifications",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Player Notifications",
                                 "value":  "true"
                             },
                             {
@@ -422,8 +422,8 @@
                             },
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
-                                "section":  "Weekly Report",
-                                "key":  "Enable",
+                                "section":  "General",
+                                "key":  "Enable Weekly Report",
                                 "value":  "true"
                             },
                             {

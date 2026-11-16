@@ -100,11 +100,11 @@ internal static class ModTestHooks
         return count;
     }
 
-    /// <summary>1 when [General] EnableAll is on (the default), 0 when off, -1 when the setting is not bound.</summary>
+    /// <summary>1 when [General] EnableMod is on (the default), 0 when off, -1 when the setting is not bound.</summary>
     [TestHook("valheimdiscordrelay.enabled")]
     static int Enabled()
     {
-        return ModSettings.EnableAll == null ? -1 : (ModSettings.EnableAll.Value ? 1 : 0);
+        return ModSettings.EnableMod == null ? -1 : (ModSettings.EnableMod.Value ? 1 : 0);
     }
 
     // ---- live Discord checks (suite test discord-live): the webhook comes from the environment variable VDR_TEST_WEBHOOK (never from a file in git)

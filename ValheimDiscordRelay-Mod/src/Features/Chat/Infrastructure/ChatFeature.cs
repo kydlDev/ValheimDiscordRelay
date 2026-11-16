@@ -6,7 +6,7 @@ using ValheimDiscordRelay.Server;
 
 namespace ValheimDiscordRelay;
 
-/// <summary>The chat relay (game chat to the Discord chat webhooks). Gate: EnableAll and [Chat] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
+/// <summary>The chat relay (game chat to the Discord chat webhooks). Gate: EnableMod and [Chat] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
 internal sealed class ChatFeature : IFeature
 {
     internal const string FeatureId = "chat";

@@ -6,7 +6,7 @@ using ValheimDiscordRelay.Server;
 
 namespace ValheimDiscordRelay;
 
-/// <summary>Server up / down / restart notifications. Gate: EnableAll and [Server Notifications] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
+/// <summary>Server up / down / restart notifications. Gate: EnableMod and [Server Notifications] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
 internal sealed class ServerNotificationsFeature : IFeature
 {
     internal const string FeatureId = "servernotifications";

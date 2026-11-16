@@ -6,7 +6,7 @@ using ValheimDiscordRelay.Server;
 
 namespace ValheimDiscordRelay;
 
-/// <summary>Screenshots sent to Discord by hotkey or the hub buttons. Gate: EnableAll and [Screenshots] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
+/// <summary>Screenshots sent to Discord by hotkey or the hub buttons. Gate: EnableMod and [Screenshots] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
 internal sealed class ScreenshotsFeature : IFeature
 {
     internal const string FeatureId = "screenshots";

@@ -1,6 +1,6 @@
 {
     "name":  "feature-toggle",
-    "description":  "EnableAll off stops all eight features; each Enable switch stops only its own feature; on starts them again. The hub tabs stay.",
+    "description":  "Enable mod off stops all eight features; each Enable switch stops only its own feature; on starts them again. The hub tabs stay.",
     "timeout":  120,
     "steps":  [
                   {
@@ -102,7 +102,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Chat/Enable":  false
+                                     "General/Enable Chat":  false
                                  }
                   },
                   {
@@ -124,7 +124,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Chat/Enable"
+                      "label":  "General/Enable screenshots unaffected by Chat"
                   },
                   {
                       "do":  "hook",
@@ -133,7 +133,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Chat/Enable"
+                      "label":  "General/Enable clips unaffected by Chat"
                   },
                   {
                       "do":  "hook",
@@ -142,7 +142,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Chat/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Chat"
                   },
                   {
                       "do":  "hook",
@@ -151,7 +151,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Chat/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Chat"
                   },
                   {
                       "do":  "hook",
@@ -160,7 +160,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Chat/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Chat"
                   },
                   {
                       "do":  "hook",
@@ -169,7 +169,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Chat/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Chat"
                   },
                   {
                       "do":  "hook",
@@ -178,12 +178,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Chat/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Chat"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Chat/Enable":  true
+                                     "General/Enable Chat":  true
                                  }
                   },
                   {
@@ -201,7 +201,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Screenshots/Enable":  false
+                                     "General/Enable Screenshots":  false
                                  }
                   },
                   {
@@ -223,7 +223,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Screenshots/Enable"
+                      "label":  "General/Enable chat unaffected by Screenshots"
                   },
                   {
                       "do":  "hook",
@@ -232,7 +232,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Screenshots/Enable"
+                      "label":  "General/Enable clips unaffected by Screenshots"
                   },
                   {
                       "do":  "hook",
@@ -241,7 +241,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Screenshots/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Screenshots"
                   },
                   {
                       "do":  "hook",
@@ -250,7 +250,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Screenshots/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Screenshots"
                   },
                   {
                       "do":  "hook",
@@ -259,7 +259,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Screenshots/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Screenshots"
                   },
                   {
                       "do":  "hook",
@@ -268,7 +268,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Screenshots/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Screenshots"
                   },
                   {
                       "do":  "hook",
@@ -277,12 +277,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Screenshots/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Screenshots"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Screenshots/Enable":  true
+                                     "General/Enable Screenshots":  true
                                  }
                   },
                   {
@@ -300,7 +300,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Clips/Enable":  false
+                                     "General/Enable Clips":  false
                                  }
                   },
                   {
@@ -322,7 +322,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Clips/Enable"
+                      "label":  "General/Enable chat unaffected by Clips"
                   },
                   {
                       "do":  "hook",
@@ -331,7 +331,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Clips/Enable"
+                      "label":  "General/Enable screenshots unaffected by Clips"
                   },
                   {
                       "do":  "hook",
@@ -340,7 +340,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Clips/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Clips"
                   },
                   {
                       "do":  "hook",
@@ -349,7 +349,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Clips/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Clips"
                   },
                   {
                       "do":  "hook",
@@ -358,7 +358,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Clips/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Clips"
                   },
                   {
                       "do":  "hook",
@@ -367,7 +367,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Clips/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Clips"
                   },
                   {
                       "do":  "hook",
@@ -376,12 +376,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Clips/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Clips"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Clips/Enable":  true
+                                     "General/Enable Clips":  true
                                  }
                   },
                   {
@@ -399,7 +399,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Player Deaths/Enable":  false
+                                     "General/Enable Player Deaths":  false
                                  }
                   },
                   {
@@ -421,7 +421,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable chat unaffected by Player Deaths"
                   },
                   {
                       "do":  "hook",
@@ -430,7 +430,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable screenshots unaffected by Player Deaths"
                   },
                   {
                       "do":  "hook",
@@ -439,7 +439,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable clips unaffected by Player Deaths"
                   },
                   {
                       "do":  "hook",
@@ -448,7 +448,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Player Deaths"
                   },
                   {
                       "do":  "hook",
@@ -457,7 +457,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Player Deaths"
                   },
                   {
                       "do":  "hook",
@@ -466,7 +466,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Player Deaths"
                   },
                   {
                       "do":  "hook",
@@ -475,12 +475,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Player Deaths/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Player Deaths"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Player Deaths/Enable":  true
+                                     "General/Enable Player Deaths":  true
                                  }
                   },
                   {
@@ -498,7 +498,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Boss Death/Enable":  false
+                                     "General/Enable Boss Death":  false
                                  }
                   },
                   {
@@ -520,7 +520,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Boss Death/Enable"
+                      "label":  "General/Enable chat unaffected by Boss Death"
                   },
                   {
                       "do":  "hook",
@@ -529,7 +529,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Boss Death/Enable"
+                      "label":  "General/Enable screenshots unaffected by Boss Death"
                   },
                   {
                       "do":  "hook",
@@ -538,7 +538,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Boss Death/Enable"
+                      "label":  "General/Enable clips unaffected by Boss Death"
                   },
                   {
                       "do":  "hook",
@@ -547,7 +547,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Boss Death/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Boss Death"
                   },
                   {
                       "do":  "hook",
@@ -556,7 +556,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Boss Death/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Boss Death"
                   },
                   {
                       "do":  "hook",
@@ -565,7 +565,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Boss Death/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Boss Death"
                   },
                   {
                       "do":  "hook",
@@ -574,12 +574,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Boss Death/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Boss Death"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Boss Death/Enable":  true
+                                     "General/Enable Boss Death":  true
                                  }
                   },
                   {
@@ -597,7 +597,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Server Notifications/Enable":  false
+                                     "General/Enable Server Notifications":  false
                                  }
                   },
                   {
@@ -619,7 +619,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable chat unaffected by Server Notifications"
                   },
                   {
                       "do":  "hook",
@@ -628,7 +628,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable screenshots unaffected by Server Notifications"
                   },
                   {
                       "do":  "hook",
@@ -637,7 +637,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable clips unaffected by Server Notifications"
                   },
                   {
                       "do":  "hook",
@@ -646,7 +646,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Server Notifications"
                   },
                   {
                       "do":  "hook",
@@ -655,7 +655,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Server Notifications"
                   },
                   {
                       "do":  "hook",
@@ -664,7 +664,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Server Notifications"
                   },
                   {
                       "do":  "hook",
@@ -673,12 +673,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Server Notifications/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Server Notifications"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Server Notifications/Enable":  true
+                                     "General/Enable Server Notifications":  true
                                  }
                   },
                   {
@@ -696,7 +696,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Player Notifications/Enable":  false
+                                     "General/Enable Player Notifications":  false
                                  }
                   },
                   {
@@ -718,7 +718,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable chat unaffected by Player Notifications"
                   },
                   {
                       "do":  "hook",
@@ -727,7 +727,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable screenshots unaffected by Player Notifications"
                   },
                   {
                       "do":  "hook",
@@ -736,7 +736,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable clips unaffected by Player Notifications"
                   },
                   {
                       "do":  "hook",
@@ -745,7 +745,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Player Notifications"
                   },
                   {
                       "do":  "hook",
@@ -754,7 +754,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Player Notifications"
                   },
                   {
                       "do":  "hook",
@@ -763,7 +763,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Player Notifications"
                   },
                   {
                       "do":  "hook",
@@ -772,12 +772,12 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  true,
-                      "label":  "weeklyreport unaffected by Player Notifications/Enable"
+                      "label":  "General/Enable weeklyreport unaffected by Player Notifications"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Player Notifications/Enable":  true
+                                     "General/Enable Player Notifications":  true
                                  }
                   },
                   {
@@ -795,7 +795,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Weekly Report/Enable":  false
+                                     "General/Enable Weekly Report":  false
                                  }
                   },
                   {
@@ -817,7 +817,7 @@
                                    "id":  "chat"
                                },
                       "expect":  true,
-                      "label":  "chat unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable chat unaffected by Weekly Report"
                   },
                   {
                       "do":  "hook",
@@ -826,7 +826,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  true,
-                      "label":  "screenshots unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable screenshots unaffected by Weekly Report"
                   },
                   {
                       "do":  "hook",
@@ -835,7 +835,7 @@
                                    "id":  "clips"
                                },
                       "expect":  true,
-                      "label":  "clips unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable clips unaffected by Weekly Report"
                   },
                   {
                       "do":  "hook",
@@ -844,7 +844,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  true,
-                      "label":  "playerdeaths unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable playerdeaths unaffected by Weekly Report"
                   },
                   {
                       "do":  "hook",
@@ -853,7 +853,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  true,
-                      "label":  "bossdeath unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable bossdeath unaffected by Weekly Report"
                   },
                   {
                       "do":  "hook",
@@ -862,7 +862,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  true,
-                      "label":  "servernotifications unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable servernotifications unaffected by Weekly Report"
                   },
                   {
                       "do":  "hook",
@@ -871,12 +871,12 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  true,
-                      "label":  "playernotifications unaffected by Weekly Report/Enable"
+                      "label":  "General/Enable playernotifications unaffected by Weekly Report"
                   },
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "Weekly Report/Enable":  true
+                                     "General/Enable Weekly Report":  true
                                  }
                   },
                   {
@@ -894,7 +894,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "General/EnableAll":  false
+                                     "General/Enable mod":  false
                                  }
                   },
                   {
@@ -916,7 +916,7 @@
                                    "id":  "chat"
                                },
                       "expect":  false,
-                      "label":  "chat stopped by EnableAll"
+                      "label":  "chat stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -925,7 +925,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  false,
-                      "label":  "screenshots stopped by EnableAll"
+                      "label":  "screenshots stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -934,7 +934,7 @@
                                    "id":  "clips"
                                },
                       "expect":  false,
-                      "label":  "clips stopped by EnableAll"
+                      "label":  "clips stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -943,7 +943,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  false,
-                      "label":  "playerdeaths stopped by EnableAll"
+                      "label":  "playerdeaths stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -952,7 +952,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  false,
-                      "label":  "bossdeath stopped by EnableAll"
+                      "label":  "bossdeath stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -961,7 +961,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  false,
-                      "label":  "servernotifications stopped by EnableAll"
+                      "label":  "servernotifications stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -970,7 +970,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  false,
-                      "label":  "playernotifications stopped by EnableAll"
+                      "label":  "playernotifications stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -979,7 +979,7 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  false,
-                      "label":  "weeklyreport stopped by EnableAll"
+                      "label":  "weeklyreport stopped by Enable mod"
                   },
                   {
                       "do":  "hook",
@@ -993,7 +993,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "General/EnableAll":  true
+                                     "General/Enable mod":  true
                                  }
                   },
                   {

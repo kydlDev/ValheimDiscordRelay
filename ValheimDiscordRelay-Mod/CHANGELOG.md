@@ -1,6 +1,14 @@
 # Changelog
 
-## Fixed
+## 2.1.1
+
+- Changed: the menus of this mod take their text sizes, text colours and font from KydlCore. Needs KydlCore 1.1.1 or newer.
+**Client AND server must update together** (the mod's version check requires the same version on both).
+
+### Changed
+- Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable mod` (was `EnableAll`) and `Enable Chat`, `Enable Screenshots`, `Enable Clips`, `Enable Player Deaths`, `Enable Boss Death`, `Enable Server Notifications`, `Enable Player Notifications`, `Enable Weekly Report` (each was `Enable` in its own section; they are still synced from the server). The values you had set are taken over; the old entries are removed from your config file.
+
+### Fixed
 - Test suite: `death-quotes` no longer depends on what ran before it in the same game session. The check now sets the player's own last hit aside while it builds each quote (an old Fall hit from an earlier test made every Tree quote fail). The death messages players see are unchanged.
 - Test suite: when the player does not respawn after a test death, the log now names what the game's respawn is waiting for (the objects near the spawn point without an instance).
 - Test suite: four minimum checks in `startup-clean` and `screenshot-modes` (config entries, mod enabled, player visible) were silently ignored by DrakesTestLab; they are real checks now.

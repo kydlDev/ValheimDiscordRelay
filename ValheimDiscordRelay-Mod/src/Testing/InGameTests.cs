@@ -26,16 +26,16 @@ internal static class InGameTests
         if (info.Plugin == null) return "FAIL: plugin not found";
         var keys = info.Plugin.Config.Keys.ToList();
         bool file = info.Plugin.Config.ConfigFilePath.EndsWith(ValheimDiscordRelayPlugin.ModGuid + ".cfg");
-        return file && keys.Count >= 60 && ModSettings.EnableAll != null
+        return file && keys.Count >= 60 && ModSettings.EnableMod != null
             ? "PASS: " + keys.Count + " entries in " + System.IO.Path.GetFileName(info.Plugin.Config.ConfigFilePath)
             : "FAIL: " + keys.Count + " entries (want >= 60) in " + info.Plugin.Config.ConfigFilePath;
     }
 
-    /// The config rule (PROJECT_RULES 11): [General] EnableAll and [DebugLog] Enable exist, the mod is on.
+    /// The config rule (PROJECT_RULES 11): [General] EnableMod and [DebugLog] Enable exist, the mod is on.
     static string Startup_ConfigRules()
     {
-        if (ModSettings.EnableAll == null || ModSettings.DebugLog == null) return "FAIL: ModSettings.Bind did not run (EnableAll / DebugLog null)";
-        return ModSettings.EnableAll.Value ? "PASS: EnableAll on, debug log " + ModSettings.DebugLog.Value : "SKIP: EnableAll is off in the config";
+        if (ModSettings.EnableMod == null || ModSettings.DebugLog == null) return "FAIL: ModSettings.Bind did not run (EnableMod / DebugLog null)";
+        return ModSettings.EnableMod.Value ? "PASS: EnableMod on, debug log " + ModSettings.DebugLog.Value : "SKIP: EnableMod is off in the config";
     }
 
     /// KydlCore (hard dependency) is loaded: it owns the KY hub (F6) with this mod's Settings tab.

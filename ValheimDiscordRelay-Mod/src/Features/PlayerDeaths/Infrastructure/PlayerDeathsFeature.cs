@@ -6,7 +6,7 @@ using ValheimDiscordRelay.Server;
 
 namespace ValheimDiscordRelay;
 
-/// <summary>Player death messages, death camera and death videos. Gate: EnableAll and [Player Deaths] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
+/// <summary>Player death messages, death camera and death videos. Gate: EnableMod and [Player Deaths] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
 internal sealed class PlayerDeathsFeature : IFeature
 {
     internal const string FeatureId = "playerdeaths";

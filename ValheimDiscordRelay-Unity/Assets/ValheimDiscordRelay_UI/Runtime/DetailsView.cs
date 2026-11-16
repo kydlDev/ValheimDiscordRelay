@@ -38,9 +38,9 @@ namespace ValheimDiscordRelay.Ui
         static VisualElement ColumnHeader(string q, string max)
         {
             var r = RowBox();
-            r.Add(Cell("", LabelWidth, UiKit.TextDim, UiKit.SmallSize));
-            r.Add(Cell(q ?? "", ValueWidth, UiKit.TextDim, UiKit.SmallSize));
-            r.Add(Cell(max ?? "", ValueWidth, UiKit.TextDim, UiKit.SmallSize));
+            r.Add(Cell("", LabelWidth, TextRole.SmallNote));
+            r.Add(Cell(q ?? "", ValueWidth, TextRole.SmallNote));
+            r.Add(Cell(max ?? "", ValueWidth, TextRole.SmallNote));
             return r;
         }
 
@@ -48,9 +48,9 @@ namespace ValheimDiscordRelay.Ui
         static VisualElement StatRow(DetailRow row, bool blockHasMax)
         {
             var r = RowBox();
-            r.Add(Cell(row.Label, LabelWidth, UiKit.TextDim, UiKit.FontSize));
-            r.Add(Cell(row.Value, blockHasMax && row.HasMax ? ValueWidth : -1f, UiKit.Text, UiKit.FontSize));
-            if (blockHasMax && row.HasMax) r.Add(Cell(row.MaxValue, ValueWidth, UiKit.Gold, UiKit.FontSize));
+            r.Add(Cell(row.Label, LabelWidth, TextRole.Note));
+            r.Add(Cell(row.Value, blockHasMax && row.HasMax ? ValueWidth : -1f, TextRole.Body));
+            if (blockHasMax && row.HasMax) r.Add(Cell(row.MaxValue, ValueWidth, TextRole.Value));
             return r;
         }
 
@@ -62,9 +62,9 @@ namespace ValheimDiscordRelay.Ui
             return r;
         }
 
-        static Label Cell(string content, float width, Color color, float size)
+        static Label Cell(string content, float width, TextRole role)
         {
-            var l = UiKit.Label(content, size, color);
+            var l = UiKit.TextLabel(content, role);
             l.style.whiteSpace = WhiteSpace.Normal;
             if (width >= 0f) { l.style.width = width; l.style.flexShrink = 0; }
             else { l.style.flexGrow = 1; l.style.flexShrink = 1; }

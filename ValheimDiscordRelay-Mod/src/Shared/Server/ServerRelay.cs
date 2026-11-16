@@ -40,7 +40,7 @@ internal static class ServerRelay
         BossConfig.Enabled.SettingChanged += OnRelaySettingChanged;
         PlayerNotificationConfig.Enabled.SettingChanged += OnRelaySettingChanged;
         ReportConfig.Enabled.SettingChanged += OnRelaySettingChanged;
-        ModSettings.EnableAll.SettingChanged += OnRelaySettingChanged;
+        ModSettings.EnableMod.SettingChanged += OnRelaySettingChanged;
     }
 
     /// <summary>
@@ -58,8 +58,8 @@ internal static class ServerRelay
             PlayerNotificationConfig.Enabled.SettingChanged -= OnRelaySettingChanged;
         if (ReportConfig.Enabled != null)
             ReportConfig.Enabled.SettingChanged -= OnRelaySettingChanged;
-        if (ModSettings.EnableAll != null)
-            ModSettings.EnableAll.SettingChanged -= OnRelaySettingChanged;
+        if (ModSettings.EnableMod != null)
+            ModSettings.EnableMod.SettingChanged -= OnRelaySettingChanged;
 
         // Send what is still queued (bounded) instead of throwing it away: the process is about to end.
         WebhookWorker worker = _worker;

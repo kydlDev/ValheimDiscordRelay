@@ -20,13 +20,13 @@ namespace ValheimDiscordRelay;
 /// </summary>
 [BepInPlugin(ModGuid, ModName, ModVersion)]
 [BepInDependency(Jotunn.Main.ModGuid)]
-[BepInDependency(KydlCore.Bootstrap.Plugin.ModGuid, "1.1.0")]
+[BepInDependency(KydlCore.Bootstrap.Plugin.ModGuid, "1.1.1")]
 [NetworkCompatibility(CompatibilityLevel.VersionCheckOnly, VersionStrictness.Patch)]
 public sealed class ValheimDiscordRelayPlugin : BaseUnityPlugin
 {
     public const string ModGuid = "com.kydldev.ValheimDiscordRelay";   // also the config file name: com.kydldev.ValheimDiscordRelay.cfg
     public const string ModName = "ValheimDiscordRelay";
-    public const string ModVersion = "2.1.0";
+    public const string ModVersion = "2.1.1";
 
     /// <summary>
     /// Names what is special about this build, so a log can be matched to the code that produced it even when the
@@ -92,7 +92,7 @@ public sealed class ValheimDiscordRelayPlugin : BaseUnityPlugin
         // Fires for the menu's Quit button, Alt+F4 and the window's close button alike.
         Application.quitting += HandleApplicationQuit;
 
-        ModLog.Info(ModName + " " + ModVersion + " loaded (" + DescribeBuild() + "). EnableAll=" + ModSettings.EnableAll.Value);
+        ModLog.Info(ModName + " " + ModVersion + " loaded (" + DescribeBuild() + "). EnableMod=" + ModSettings.EnableMod.Value);
         WarnAboutSharedWebhooks();
         ModLog.Info("ServerSync active (webhook URLs only the server uses are never synced to players). Config lock: " +
                     (AdminConfig.LockConfiguration.Value ? "ON - admins only." : "OFF - any player can change synced settings."));

@@ -6,7 +6,7 @@ using ValheimDiscordRelay.Server;
 
 namespace ValheimDiscordRelay;
 
-/// <summary>The weekly report (Discord post and in-game window). Gate: EnableAll and [Weekly Report] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
+/// <summary>The weekly report (Discord post and in-game window). Gate: EnableMod and [Weekly Report] Enable. The code that does the work reads the gate itself; this class carries the switch state for the FeatureRegistry.</summary>
 internal sealed class WeeklyReportFeature : IFeature
 {
     internal const string FeatureId = "weeklyreport";

@@ -1,16 +1,16 @@
 ﻿# SonarQube ValheimDiscordRelay - OK (Medium/High impact issues: 0; Sonar server gate: ERROR)
 
-Run 2026-11-14 14:18:22, http://localhost:9000/dashboard?id=ValheimDiscordRelay
+Run 2026-11-16 12:00:25, http://localhost:9000/dashboard?id=ValheimDiscordRelay
 
 | Measure | Value |
 |---|---|
-| branch_coverage | 3.7 |
+| branch_coverage | 3.6 |
 | bugs | 0 |
 | code_smells | 11 |
 | coverage | 4.7 |
 | duplicated_lines_density | 0.8 |
 | line_coverage | 5.2 |
-| ncloc | 18644 |
+| ncloc | 18700 |
 | reliability_rating | 1.0 |
 | security_hotspots | 0 |
 | security_rating | 2.0 |

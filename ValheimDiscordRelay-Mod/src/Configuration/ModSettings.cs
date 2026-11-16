@@ -9,7 +9,7 @@ namespace ValheimDiscordRelay;
 
 /// <summary>
 /// The ONE config of the mod (PROJECT_RULES 11), bound once by <see cref="Bind"/> into ONE file, com.kydldev.ValheimDiscordRelay.cfg.
-/// [General] EnableAll switches the whole mod, [DebugLog] Enable adds detail lines to the log, every feature section has its own Enable.
+/// [General] EnableMod switches the whole mod, [DebugLog] Enable adds detail lines to the log, every feature section has its own Enable.
 ///
 /// Key naming: "Server - ..." entries belong to the server admin. Most are synced (bound through <see cref="SyncedConfig"/>): every player
 /// receives the server's value and only an admin can change it. The ones only the server uses (private webhook URLs, notification switches) are
@@ -22,11 +22,11 @@ internal static class ModSettings
     /// <summary>The config file of the plugin (every entry below is bound into it).</summary>
     internal static ConfigFile File;
 
-    internal static ConfigEntry<bool> EnableAll;
+    internal static ConfigEntry<bool> EnableMod;
     internal static ConfigEntry<bool> DebugLog;
 
-    /// <summary>Is the mod switched on ([General] EnableAll)? Off = inert: nothing is relayed, recorded, uploaded or reported.</summary>
-    internal static bool On { get { return EnableAll == null || EnableAll.Value; } }
+    /// <summary>Is the mod switched on ([General] EnableMod)? Off = inert: nothing is relayed, recorded, uploaded or reported.</summary>
+    internal static bool On { get { return EnableMod == null || EnableMod.Value; } }
 
     internal static bool Verbose { get { return DebugLog != null && DebugLog.Value; } }
 
@@ -40,7 +40,7 @@ internal static class ModSettings
         _bound = true;
         File = c;
 
-        EnableAll = c.Bind("General", "EnableAll", true,
+        EnableMod = c.Bind("General", "Enable mod", Old(c, "General", "EnableAll"),
             "Master switch. Off = the mod does nothing in this game: no chat relay, screenshots, clips, death or boss videos, notifications or weekly report, and no version check.");
         AdminConfig.LockConfiguration = SyncedConfig.BindLock("General", "Server - Lock Configuration", true,
             "When true, only players listed in the server's adminlist.txt can change the synced settings from their game; everyone else's edits are ignored. Set to false to let ANY connected player change them (and have the server save it).");
@@ -65,13 +65,33 @@ internal static class ModSettings
         BindPlayerNotifications(c);
         BindWeeklyReport(c);
 
-        EnableAll.SettingChanged += (s, e) => ModLog.Info("Config: EnableAll = " + EnableAll.Value + (EnableAll.Value ? ", the mod is on" : ", the mod is inert"));
+        EnableMod.SettingChanged += (s, e) => ModLog.Info("Config: EnableMod = " + EnableMod.Value + (EnableMod.Value ? ", the mod is on" : ", the mod is inert"));
+    }
+
+    /// The value the player had in an entry that moved (still in the file as an orphan before DropRemoved deletes it): the first of the
+    /// given (section, key, section, key, ...) pairs that holds a bool; true when there is none.
+    private static bool Old(ConfigFile c, params string[] sectionAndKey)
+    {
+        // OrphanedEntries is not a public member of every BepInEx 5 build (ConfigTools.DropRemoved reaches it the same way)
+        System.Reflection.PropertyInfo orphans = typeof(ConfigFile).GetProperty("OrphanedEntries", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+        var dict = orphans != null ? orphans.GetValue(c, null) as System.Collections.IDictionary : null;
+        for (int i = 0; dict != null && i + 1 < sectionAndKey.Length; i += 2)
+        {
+            var def = new ConfigDefinition(sectionAndKey[i], sectionAndKey[i + 1]);
+            bool b;
+            if (dict.Contains(def) && bool.TryParse((dict[def] as string ?? "").Trim(), out b))
+            {
+                return b;
+            }
+        }
+
+        return true;
     }
 
     // ---- [Chat] --------------------------------------------------------------------------------------------------------------
     private static void BindChat(ConfigFile c)
     {
-        ServerConfig.Enabled = SyncedConfig.Bind("Chat", "Enable", true,
+        ServerConfig.Enabled = SyncedConfig.Bind("General", "Enable Chat", Old(c, "General", "Enable Chat", "Chat", "Enable"),
             "Enable the Valheim chat -> Discord relay. Synced from the server. When off, nothing is posted to the chat webhooks.");
         ServerConfig.WebhookUrl = AdminOnly.Bind("Chat", "Server - Webhook URL", "",
             "Fallback Discord webhook URL. Used only when the specific Normal/Shout webhook is empty. Server-side only: players never receive it.");
@@ -105,7 +125,7 @@ internal static class ModSettings
     // ---- [Screenshots] -------------------------------------------------------------------------------------------------------
     private static void BindScreenshots(ConfigFile c)
     {
-        Client.ClientConfig.ScreenshotServerEnabled = SyncedConfig.Bind("Screenshots", "Enable", true,
+        Client.ClientConfig.ScreenshotServerEnabled = SyncedConfig.Bind("General", "Enable Screenshots", Old(c, "General", "Enable Screenshots", "Screenshots", "Enable"),
             "Allow manual screenshots to be sent to Discord. Synced from the server: turn off to disable the feature for every player. " +
             "Only admins can change it while [General] Server - Lock Configuration is on.");
         Client.ClientConfig.ScreenshotWebhookUrl = SyncedConfig.Bind("Screenshots", "Server - Webhook URL", "",
@@ -139,7 +159,7 @@ internal static class ModSettings
     // ---- [Clips] -------------------------------------------------------------------------------------------------------------
     private static void BindClips(ConfigFile c)
     {
-        Client.ClipConfig.ServerEnabled = SyncedConfig.Bind("Clips", "Enable", true,
+        Client.ClipConfig.ServerEnabled = SyncedConfig.Bind("General", "Enable Clips", Old(c, "General", "Enable Clips", "Clips", "Enable"),
             "Allow clips to be sent to Discord. Synced from the server: turn off to disable the feature for every player. " +
             "Only admins can change it while [General] Server - Lock Configuration is on.");
         Client.ClipConfig.WebhookUrl = SyncedConfig.Bind("Clips", "Server - Webhook URL", "",
@@ -166,7 +186,7 @@ internal static class ModSettings
     // ---- [Player Deaths] -----------------------------------------------------------------------------------------------------
     private static void BindPlayerDeaths(ConfigFile c)
     {
-        Client.ClientConfig.DeathServerEnabled = SyncedConfig.Bind("Player Deaths", "Enable", true,
+        Client.ClientConfig.DeathServerEnabled = SyncedConfig.Bind("General", "Enable Player Deaths", Old(c, "General", "Enable Player Deaths", "Player Deaths", "Enable"),
             "Enable player death messages (in-game shout and Discord message, with a video when videos are on). Synced from the server: " +
             "turn off to disable the feature for every player. Only admins can change it while [General] Server - Lock Configuration is on.");
         Client.ClientConfig.DeathVideoWebhookUrl = SyncedConfig.Bind("Player Deaths", "Server - Webhook URL", "",
@@ -204,7 +224,7 @@ internal static class ModSettings
     // ---- [Boss Death] --------------------------------------------------------------------------------------------------------
     private static void BindBossDeath(ConfigFile c)
     {
-        BossConfig.Enabled = SyncedConfig.Bind("Boss Death", "Enable", true,
+        BossConfig.Enabled = SyncedConfig.Bind("General", "Enable Boss Death", Old(c, "General", "Enable Boss Death", "Boss Death", "Enable"),
             "Announce boss deaths in Discord (embed) and, optionally, with a short video. Synced from the server: turn off to disable the feature for every player.");
         BossConfig.WebhookUrl = SyncedConfig.Bind("Boss Death", "Server - Webhook URL", "",
             "Discord webhook URL for boss death announcements. The server posts the embed to it; the player whose game " +
@@ -246,7 +266,7 @@ internal static class ModSettings
     // ---- [Server Notifications] ----------------------------------------------------------------------------------------------
     private static void BindServerNotifications(ConfigFile c)
     {
-        ServerConfig.ServerNotificationsEnabled = AdminOnly.Bind("Server Notifications", "Enable", true,
+        ServerConfig.ServerNotificationsEnabled = AdminOnly.Bind("General", "Enable Server Notifications", Old(c, "General", "Enable Server Notifications", "Server Notifications", "Enable"),
             "Enable server up/down/restart notifications in a dedicated Discord channel/webhook. (Player join/leave messages have their own [Player Notifications] section.)");
         ServerConfig.ServerNotificationsWebhookUrl = AdminOnly.Bind("Server Notifications", "Server - Webhook URL", "",
             "Discord webhook URL for server up/down/restart notifications. Server-side only: players never receive it.");
@@ -270,7 +290,7 @@ internal static class ModSettings
     // ---- [Player Notifications] ----------------------------------------------------------------------------------------------
     private static void BindPlayerNotifications(ConfigFile c)
     {
-        PlayerNotificationConfig.Enabled = SyncedConfig.Bind("Player Notifications", "Enable", true,
+        PlayerNotificationConfig.Enabled = SyncedConfig.Bind("General", "Enable Player Notifications", Old(c, "General", "Enable Player Notifications", "Player Notifications", "Enable"),
             "ON: Valheim's own arrival message (\"I have arrived!\") is intercepted and NOT sent to Discord. Instead the mod posts " +
             "\"<name> has joined the world. Population: <n>. Good luck!\" and \"<name> had to leave us. Hope they had fun. Population: <n>.\" " +
             "to this section's webhook. OFF: the game's arrival message is relayed like any other shout through the normal chat webhook, " +
@@ -288,7 +308,7 @@ internal static class ModSettings
     // ---- [Weekly Report] -----------------------------------------------------------------------------------------------------
     private static void BindWeeklyReport(ConfigFile c)
     {
-        ReportConfig.Enabled = SyncedConfig.Bind("Weekly Report", "Enable", true,
+        ReportConfig.Enabled = SyncedConfig.Bind("General", "Enable Weekly Report", Old(c, "General", "Enable Weekly Report", "Weekly Report", "Enable"),
             "Collect weekly statistics (players joined, mob kills, deaths, boss kills, damage) and post them as one embed " +
             "once a week. Synced from the server: turn off to disable the feature for every player.");
         ReportConfig.WebhookUrl = AdminOnly.Bind("Weekly Report", "Server - Webhook URL", "",
