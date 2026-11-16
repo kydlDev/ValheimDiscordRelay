@@ -59,6 +59,7 @@ internal static class ChatRateLimiter
 
         double elapsed = Math.Max(0.0, (now - bucket.LastUtc).TotalSeconds);
         bucket.LastUtc = now;
+        // Stryker disable once Arithmetic : the refill rate is 1.0 token per second, so * and / give the same number (equivalent mutant)
         bucket.Tokens = Math.Min(ChatBurst, bucket.Tokens + elapsed * ChatRefillPerSecond);
 
         if (bucket.Tokens >= 1.0)

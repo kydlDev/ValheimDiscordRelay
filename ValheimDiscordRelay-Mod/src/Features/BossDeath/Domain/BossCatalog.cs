@@ -191,6 +191,7 @@ internal static class BossCatalog
     /// </summary>
     internal static bool IsSamePhaseFamily(string prefabA, string prefabB)
     {
+        // Stryker disable once Logical : a blank prefab cleans to "" which matches no phase family, so && and || both return false (equivalent mutant)
         if (string.IsNullOrWhiteSpace(prefabA) || string.IsNullOrWhiteSpace(prefabB))
             return false;
 
