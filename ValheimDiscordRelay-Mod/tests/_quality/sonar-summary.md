@@ -1,6 +1,6 @@
 ﻿# SonarQube ValheimDiscordRelay - OK (Medium/High impact issues: 0; Sonar server gate: ERROR)
 
-Run 2026-11-16 14:32:27, http://localhost:9000/dashboard?id=ValheimDiscordRelay
+Run 2026-11-17 10:11:19, http://localhost:9000/dashboard?id=ValheimDiscordRelay
 
 | Measure | Value |
 |---|---|
@@ -8,18 +8,17 @@ Run 2026-11-16 14:32:27, http://localhost:9000/dashboard?id=ValheimDiscordRelay
 | bugs | 0 |
 | code_smells | 11 |
 | coverage | 98.5 |
-| duplicated_lines_density | 0.8 |
+| duplicated_lines_density | 0.6 |
 | line_coverage | 98.6 |
-| ncloc | 18700 |
+| ncloc | 18671 |
 | reliability_rating | 1.0 |
 | security_hotspots | 0 |
 | security_rating | 2.0 |
 | sqale_rating | 1.0 |
-| vulnerabilities | 7 |
+| vulnerabilities | 6 |
 
-## Open issues (18), most severe first
+## Open issues (17), most severe first
 
-- [MINOR VULNERABILITY] ValheimDiscordRelay-Mod/src/Shared/EnglishNames.cs :45 - Pass a timeout to limit the execution time. (csharpsquid:S6444)
 - [MINOR VULNERABILITY] ValheimDiscordRelay-Mod/src/Features/PlayerDeaths/Infrastructure/AttackerInfo.cs :18 - Pass a timeout to limit the execution time. (csharpsquid:S6444)
 - [MINOR VULNERABILITY] ValheimDiscordRelay-Mod/src/Features/PlayerDeaths/Infrastructure/DeathQuotes.cs :199 - Pass a timeout to limit the execution time. (csharpsquid:S6444)
 - [MINOR VULNERABILITY] ValheimDiscordRelay-Mod/src/Shared/EnglishNames.cs :42 - Pass a timeout to limit the execution time. (csharpsquid:S6444)
