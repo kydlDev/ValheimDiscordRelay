@@ -6,7 +6,8 @@
 **Client AND server must update together** (the mod's version check requires the same version on both).
 
 ### Changed
-- Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable mod` (was `EnableAll`) and `Enable Chat`, `Enable Screenshots`, `Enable Clips`, `Enable Player Deaths`, `Enable Boss Death`, `Enable Server Notifications`, `Enable Player Notifications`, `Enable Weekly Report` (each was `Enable` in its own section; they are still synced from the server). The values you had set are taken over; the old entries are removed from your config file.
+- Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable Mod` (was `EnableAll`) and `Enable Chat`, `Enable Screenshots`, `Enable Clips`, `Enable Player Deaths`, `Enable Boss Death`, `Enable Server Notifications`, `Enable Player Notifications`, `Enable Weekly Report` (each was `Enable` in its own section; they are still synced from the server). The values you had set are taken over; the old entries are removed from your config file.
+- Changed: `Enable Mod` is now the first setting of `[General]`, in the F1 menu and in the F6 hub (your value is taken over).
 
 ### Fixed
 - Test suite: `death-quotes` no longer depends on what ran before it in the same game session. The check now sets the player's own last hit aside while it builds each quote (an old Fall hit from an earlier test made every Tree quote fail). The death messages players see are unchanged.
@@ -14,7 +15,7 @@
 - Test suite: four minimum checks in `startup-clean` and `screenshot-modes` (config entries, mod enabled, player visible) were silently ignored by DrakesTestLab; they are real checks now.
 
 ### Testing
-- Unit tests: 327 passed. Integration tests: 76 passed.
+- Unit tests: 327 passed. Integration tests: 77 passed.
 - Property-based tests (FsCheck, included in the unit tests above): 4 property checks with generated inputs.
 - Coverage of the testable code: 98.6%. Mutation testing (Stryker): 98.7% of the mutants are caught by the tests.
 - Performance benchmarks (BenchmarkDotNet): 4.

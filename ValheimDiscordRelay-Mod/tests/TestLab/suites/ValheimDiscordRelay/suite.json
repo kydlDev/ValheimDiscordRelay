@@ -1,6 +1,6 @@
 {
     "name":  "ValheimDiscordRelay",
-    "description":  "ValheimDiscordRelay: starts clean, every feature starts and stops with its own Enable switch (Enable mod stops all), the Settings and Screenshots tabs are in the KY hub, the three screenshot kinds work, live Discord webhook (KydlCore D-084: every mod ships a suite)",
+    "description":  "ValheimDiscordRelay: starts clean, every feature starts and stops with its own Enable switch (Enable Mod stops all), the Settings and Screenshots tabs are in the KY hub, the three screenshot kinds work, live Discord webhook (KydlCore D-084: every mod ships a suite)",
     "requireMods":  [
                         {
                             "guid":  "com.kydldev.ValheimDiscordRelay",
@@ -15,7 +15,7 @@
                             {
                                 "guid":  "com.kydldev.ValheimDiscordRelay",
                                 "section":  "General",
-                                "key":  "Enable mod",
+                                "key":  "Enable Mod",
                                 "value":  "true"
                             },
                             {

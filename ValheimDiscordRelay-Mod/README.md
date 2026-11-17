@@ -81,7 +81,7 @@ Setting names tell you who they belong to:
 - **`Server - ...`** — set by the server admin. Either **synced** to every player, or **server only** (used by the server and never sent anywhere).
 - **`Client - ...`** — each player's own setting, never synced.
 
-Every category has an `Enable` switch (admin, affects everyone) and most have a `Client - Enabled` switch (the player opting out). **A feature that has both runs only when both are on.** `[General] Enable mod` (on by default) is the master switch: while it is off the whole mod is inert on that machine, and the same is true of a category whose `Enable` is off.
+Every category has an `Enable` switch (admin, affects everyone) and most have a `Client - Enabled` switch (the player opting out). **A feature that has both runs only when both are on.** `[General] Enable Mod` (on by default) is the master switch: while it is off the whole mod is inert on that machine, and the same is true of a category whose `Enable` is off.
 
 ### What is synced
 
@@ -95,7 +95,7 @@ The mod uses ServerSync for the shared settings and a small admin-only channel f
 
 | Setting | Default | |
 | --- | --- | --- |
-| `Enable mod` | `true` | Master switch of this mod on this machine. Off = nothing is relayed, captured or measured. |
+| `Enable Mod` | `true` | Master switch of this mod on this machine. Off = nothing is relayed, captured or measured. |
 | `Server - Lock Configuration` | `true` | Synced. Only players in the server's `adminlist.txt` can change synced settings from their game. If `false`, **any** connected player can change them, webhook URLs included. Leave it on for a public server. |
 | `Server - Require Same Version` | `true` | Server only. The server refuses players who do not have exactly the server's version of this mod, including players without it. See [Version check](#version-check). |
 | `Server - Log Successful Sends` | `false` | Synced. Log every successful Discord delivery (the server logs its own, each player's game logs its own uploads). |

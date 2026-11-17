@@ -1,6 +1,6 @@
 {
     "name":  "feature-toggle",
-    "description":  "Enable mod off stops all eight features; each Enable switch stops only its own feature; on starts them again. The hub tabs stay.",
+    "description":  "Enable Mod off stops all eight features; each Enable switch stops only its own feature; on starts them again. The hub tabs stay.",
     "timeout":  120,
     "steps":  [
                   {
@@ -894,7 +894,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "General/Enable mod":  false
+                                     "General/Enable Mod":  false
                                  }
                   },
                   {
@@ -916,7 +916,7 @@
                                    "id":  "chat"
                                },
                       "expect":  false,
-                      "label":  "chat stopped by Enable mod"
+                      "label":  "chat stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -925,7 +925,7 @@
                                    "id":  "screenshots"
                                },
                       "expect":  false,
-                      "label":  "screenshots stopped by Enable mod"
+                      "label":  "screenshots stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -934,7 +934,7 @@
                                    "id":  "clips"
                                },
                       "expect":  false,
-                      "label":  "clips stopped by Enable mod"
+                      "label":  "clips stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -943,7 +943,7 @@
                                    "id":  "playerdeaths"
                                },
                       "expect":  false,
-                      "label":  "playerdeaths stopped by Enable mod"
+                      "label":  "playerdeaths stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -952,7 +952,7 @@
                                    "id":  "bossdeath"
                                },
                       "expect":  false,
-                      "label":  "bossdeath stopped by Enable mod"
+                      "label":  "bossdeath stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -961,7 +961,7 @@
                                    "id":  "servernotifications"
                                },
                       "expect":  false,
-                      "label":  "servernotifications stopped by Enable mod"
+                      "label":  "servernotifications stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -970,7 +970,7 @@
                                    "id":  "playernotifications"
                                },
                       "expect":  false,
-                      "label":  "playernotifications stopped by Enable mod"
+                      "label":  "playernotifications stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -979,7 +979,7 @@
                                    "id":  "weeklyreport"
                                },
                       "expect":  false,
-                      "label":  "weeklyreport stopped by Enable mod"
+                      "label":  "weeklyreport stopped by Enable Mod"
                   },
                   {
                       "do":  "hook",
@@ -993,7 +993,7 @@
                   {
                       "do":  "setConfig",
                       "values":  {
-                                     "General/Enable mod":  true
+                                     "General/Enable Mod":  true
                                  }
                   },
                   {

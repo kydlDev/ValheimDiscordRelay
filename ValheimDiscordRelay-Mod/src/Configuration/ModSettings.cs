@@ -40,8 +40,8 @@ internal static class ModSettings
         _bound = true;
         File = c;
 
-        EnableMod = c.Bind("General", "Enable mod", Old(c, "General", "EnableAll"),
-            "Master switch. Off = the mod does nothing in this game: no chat relay, screenshots, clips, death or boss videos, notifications or weekly report, and no version check.");
+        EnableMod = c.Bind("General", "Enable Mod", Old(c, "General", "Enable mod", "General", "EnableAll"),
+            ConfigOrder.First("Master switch. Off = the mod does nothing in this game: no chat relay, screenshots, clips, death or boss videos, notifications or weekly report, and no version check."));
         AdminConfig.LockConfiguration = SyncedConfig.BindLock("General", "Server - Lock Configuration", true,
             "When true, only players listed in the server's adminlist.txt can change the synced settings from their game; everyone else's edits are ignored. Set to false to let ANY connected player change them (and have the server save it).");
         AdminConfig.RequireSameVersion = AdminOnly.Bind("General", "Server - Require Same Version", true, new ConfigDescription(
