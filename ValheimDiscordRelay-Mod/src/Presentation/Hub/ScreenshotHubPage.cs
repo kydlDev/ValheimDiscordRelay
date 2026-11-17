@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BepInEx.Configuration;
 using KydlCore;
 using KydlCore.Features.Hub.Contracts;
@@ -6,26 +6,28 @@ using KydlCore.Features.Hub.Contracts;
 namespace ValheimDiscordRelay.Client;
 
 /// <summary>
-/// The "Screenshots" tab of this mod in the KY hub (F6): one button per kind of screenshot. A button closes the hub, waits for it
+/// The "Take a screenshot now" panel at the TOP of the mod's "Screenshots" tab in the KY hub (F6), above the [Screenshots] config entries
+/// (user, 2026-11-17: there were two Screenshots tabs, the buttons and the config category; now it is one tab). One button per kind of screenshot. A button closes the hub, waits for it
 /// to disappear and then takes the screenshot exactly like its key does.
 /// </summary>
 internal static class ScreenshotHubPage
 {
     private const string SettingsTabId = "settings";
-    private const string ScreenshotsTabId = "screenshots";
+    /// <summary>The config category whose F6 tab gets the panel (the tab is named like the [Screenshots] section).</summary>
+    internal const string ScreenshotsGroup = "Screenshots";
 
     /// <summary>How long after closing the hub the capture starts, so the window is not in the picture.</summary>
     private const float HubCloseDelaySeconds = 0.5f;
 
     /// <summary>
-    /// Registers the tabs. A mod that registers any tab loses KydlCore's automatic Settings tab, so the Settings tab (the same
-    /// page) is registered here too, first.
+    /// Registers the Settings tab (KydlCore splits it into one tab per config category) and the screenshot panel at the top of its
+    /// Screenshots tab.
     /// </summary>
     internal static void Register(string modGuid, ConfigFile config, ClientCaptureService service)
     {
         KyHub.AddTab(modGuid, SettingsTabId, "Settings", () => KyHub.ConfigEntries(config), 0);
-        KyHub.AddPage(modGuid, ScreenshotsTabId, "Screenshots", () => Build(service), 1);
-        RelayDiagnostics.Debug("[Screenshot] Registered the Settings and Screenshots tabs in the KY hub.");
+        bool panel = KyHub.SetGroupPage(modGuid, ScreenshotsGroup, () => Build(service), true);
+        RelayDiagnostics.Debug("[Screenshot] Registered the Settings tab and the screenshot panel at the top of the Screenshots tab in the KY hub (" + (panel ? "ok" : "FAILED") + ").");
     }
 
     private static KyPage Build(ClientCaptureService service)

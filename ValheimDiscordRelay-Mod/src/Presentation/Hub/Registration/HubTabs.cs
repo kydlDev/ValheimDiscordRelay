@@ -1,14 +1,13 @@
-using BepInEx.Configuration;
+﻿using BepInEx.Configuration;
 using KydlCore.Common;
 using ValheimDiscordRelay.Client;
 
 namespace ValheimDiscordRelay.Presentation.Hub.Registration;
 
-/// <summary>What Valheim Discord Relay declares to the KY hub (F6): its title, the settings tab (every config entry) and the Screenshots tab.</summary>
+/// <summary>What Valheim Discord Relay declares to the KY hub (F6): its title and the settings tab (every config entry, one tab per category); the Screenshots tab also has the "Take a screenshot now" panel on top.</summary>
 internal static class HubTabs
 {
     internal const string SettingsId = "settings";
-    internal const string ScreenshotsId = "screenshots";
 
     /// <summary>Registers the mod page (a game client only; a dedicated server has no hub window).</summary>
     internal static bool RegisterModPage(ConfigFile config, ClientCaptureService service)
@@ -22,7 +21,7 @@ internal static class HubTabs
 
     internal static bool UnregisterModPage()
     {
-        global::KydlCore.Features.Hub.Contracts.KyHub.RemoveTab(ValheimDiscordRelayPlugin.ModGuid, ScreenshotsId);
+        global::KydlCore.Features.Hub.Contracts.KyHub.RemoveGroupPanel(ValheimDiscordRelayPlugin.ModGuid, ScreenshotHubPage.ScreenshotsGroup);
         global::KydlCore.Features.Hub.Contracts.KyHub.RemoveTab(ValheimDiscordRelayPlugin.ModGuid, SettingsId);
         return !global::KydlCore.Features.Hub.Contracts.KyHub.HasTab(ValheimDiscordRelayPlugin.ModGuid, SettingsId);
     }

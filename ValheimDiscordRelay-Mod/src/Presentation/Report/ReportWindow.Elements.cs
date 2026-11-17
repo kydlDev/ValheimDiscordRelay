@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -236,19 +236,4 @@ public sealed partial class ReportWindow
         return new Length(value, LengthUnit.Percent);
     }
 
-    /// <summary>
-    /// Places a child at a fixed position inside a block. Height below 0 means "as tall as its content".
-    /// </summary>
-    private static void AddAbsolute(VisualElement parent, VisualElement child, Length left, Length width, float top, float height)
-    {
-        child.style.position = Position.Absolute;
-        child.style.left = left;
-        child.style.width = width;
-        child.style.top = top;
-
-        if (height >= 0f)
-            child.style.height = height;
-
-        parent.Add(child);
-    }
 }

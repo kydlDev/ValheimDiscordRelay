@@ -50,11 +50,11 @@ internal sealed partial class ClientCaptureService
         string boundary = "----ValheimDiscordRelay" + Guid.NewGuid().ToString("N");
         string avatarJson = string.IsNullOrWhiteSpace(avatarUrl)
             ? string.Empty
-            : ",\"avatar_url\":\"" + ClientTextUtils.JsonEscape(avatarUrl) + "\"";
+            : ",\"avatar_url\":\"" + DiscordFormatting.JsonEscape(avatarUrl) + "\"";
 
-        string payload = "{\"username\":\"" + ClientTextUtils.JsonEscape(username) + "\"" +
+        string payload = "{\"username\":\"" + DiscordFormatting.JsonEscape(username) + "\"" +
                          avatarJson +
-                         ",\"content\":\"" + ClientTextUtils.JsonEscape(content ?? string.Empty) +
+                         ",\"content\":\"" + DiscordFormatting.JsonEscape(content ?? string.Empty) +
                          "\",\"allowed_mentions\":{\"parse\":[]}}";
 
         byte[] prefix = Encoding.UTF8.GetBytes(
@@ -64,7 +64,7 @@ internal sealed partial class ClientCaptureService
             payload + "\r\n" +
             "--" + boundary + "\r\n" +
             "Content-Disposition: form-data; name=\"files[0]\"; filename=\"" +
-            ClientTextUtils.JsonEscape(filename) + "\"\r\n" +
+            DiscordFormatting.JsonEscape(filename) + "\"\r\n" +
             "Content-Type: " + contentType + "\r\n\r\n");
 
         byte[] suffix = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
@@ -210,8 +210,8 @@ internal sealed partial class ClientCaptureService
 
     private static void SendWebhookJson(string webhookUrl, string username, string content, int timeoutMilliseconds = 15000)
     {
-        string payload = "{\"username\":\"" + ClientTextUtils.JsonEscape(username) +
-                         "\",\"content\":\"" + ClientTextUtils.JsonEscape(content) +
+        string payload = "{\"username\":\"" + DiscordFormatting.JsonEscape(username) +
+                         "\",\"content\":\"" + DiscordFormatting.JsonEscape(content) +
                          "\",\"allowed_mentions\":{\"parse\":[]}}";
 
         HttpSecurity.EnsureTls12();

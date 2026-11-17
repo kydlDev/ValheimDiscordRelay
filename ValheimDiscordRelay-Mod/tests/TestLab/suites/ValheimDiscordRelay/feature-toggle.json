@@ -1,4 +1,4 @@
-{
+﻿{
     "name":  "feature-toggle",
     "description":  "Enable Mod off stops all eight features; each Enable switch stops only its own feature; on starts them again. The hub tabs stay.",
     "timeout":  120,
@@ -89,15 +89,6 @@
                                },
                       "expect":  true,
                       "label":  "settings tab registered"
-                  },
-                  {
-                      "do":  "hook",
-                      "name":  "valheimdiscordrelay.tabRegistered",
-                      "args":  {
-                                   "id":  "screenshots"
-                               },
-                      "expect":  true,
-                      "label":  "screenshots tab registered"
                   },
                   {
                       "do":  "setConfig",

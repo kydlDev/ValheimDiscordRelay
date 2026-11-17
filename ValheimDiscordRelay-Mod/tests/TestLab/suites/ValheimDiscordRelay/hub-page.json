@@ -1,15 +1,17 @@
 {
   "name": "hub-page",
-  "description": "The mod is listed in the KY hub with a Settings tab (its config entries) and a Screenshots tab, and the hub opens to the Screenshots tab",
+  "description": "The mod is listed in the KY hub with one tab per config category (user, 2026-11-17: ONE Screenshots tab, the 'Take a screenshot now' buttons on top and the [Screenshots] entries below, no second Screenshots page tab), and the hub opens to that Screenshots tab",
   "timeout": 60,
   "steps": [
     { "do": "hook", "name": "valheimdiscordrelay.arena", "contains": "arena at", "label": "start on the arena spot" },
-    { "do": "hook", "name": "kc.hubOpen", "args": { "mod": "com.kydldev.ValheimDiscordRelay", "tab": "screenshots" }, "expect": true },
+    { "do": "hook", "name": "kc.hubOpen", "args": { "mod": "com.kydldev.ValheimDiscordRelay", "tab": "settings\u001fScreenshots" }, "expect": true },
     { "do": "wait", "seconds": 1 },
     { "do": "hook", "name": "kc.hubMods", "contains": "com.kydldev.ValheimDiscordRelay" },
-    { "do": "hook", "name": "kc.hubTabCount", "args": { "mod": "com.kydldev.ValheimDiscordRelay" }, "expect": 11, "label": "11 tabs: the 10 config groups (General, Chat, Screenshots, Clips, Player Deaths, Boss Death, Server Notifications, Player Notifications, Weekly Report, DebugLog) + the Screenshots page tab (user, 2026-11-16: every config category is its own tab)" },
-    { "do": "hook", "name": "kc.hubTabs", "args": { "mod": "com.kydldev.ValheimDiscordRelay" }, "contains": "settings", "label": "Settings tab" },
-    { "do": "hook", "name": "kc.hubTabs", "args": { "mod": "com.kydldev.ValheimDiscordRelay" }, "contains": "screenshots", "label": "Screenshots tab" },
+    { "do": "hook", "name": "kc.hubTabCount", "args": { "mod": "com.kydldev.ValheimDiscordRelay" }, "expect": 10, "label": "10 tabs: the 10 config groups (General, Chat, Screenshots, Clips, Player Deaths, Boss Death, Server Notifications, Player Notifications, Weekly Report, DebugLog), no extra Screenshots page tab" },
+    { "do": "hook", "name": "kc.hubHasTab", "args": { "mod": "com.kydldev.ValheimDiscordRelay", "tab": "screenshots" }, "expect": false, "label": "the old separate Screenshots page tab is gone" },
+    { "do": "hook", "name": "kc.hubHasTab", "args": { "mod": "com.kydldev.ValheimDiscordRelay", "tab": "settings\u001fScreenshots" }, "expect": true, "label": "the Screenshots config tab" },
+    { "do": "check", "check": "uiVisible", "text": "Take a screenshot now", "label": "the screenshot panel is in the Screenshots tab" },
+    { "do": "check", "check": "uiVisible", "text": "Client - Key", "label": "the [Screenshots] config entries are in the same tab" },
     { "do": "hook", "name": "kc.hubClose" }
   ],
   "asserts": [ { "check": "noErrors", "source": "ValheimDiscordRelay" } ]

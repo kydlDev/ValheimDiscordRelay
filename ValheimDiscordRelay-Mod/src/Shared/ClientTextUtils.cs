@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
 
@@ -100,31 +100,4 @@ internal static class ClientTextUtils
         return result.Trim('_').Length == 0 ? fallback : result;
     }
 
-    internal static string JsonEscape(string value)
-    {
-        if (value == null)
-            return string.Empty;
-
-        StringBuilder sb = new StringBuilder(value.Length + 16);
-        foreach (char c in value)
-        {
-            switch (c)
-            {
-                case '\\': sb.Append("\\\\"); break;
-                case '"': sb.Append("\\\""); break;
-                case '\b': sb.Append("\\b"); break;
-                case '\f': sb.Append("\\f"); break;
-                case '\n': sb.Append("\\n"); break;
-                case '\r': sb.Append("\\r"); break;
-                case '\t': sb.Append("\\t"); break;
-                default:
-                    if (c < 0x20)
-                        sb.Append("\\u").Append(((int)c).ToString("x4"));
-                    else
-                        sb.Append(c);
-                    break;
-            }
-        }
-        return sb.ToString();
-    }
 }

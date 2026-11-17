@@ -42,7 +42,6 @@ internal static class EnglishNames
     private static readonly Regex CamelBoundary = new(
         "(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])", RegexOptions.CultureInvariant);
 
-    private static readonly Regex AnyTag = new("<[^>]*>", RegexOptions.CultureInvariant);
 
     // Remembers what the game resolved, so the per-hit weapon lookup stays cheap. Main thread only. Dropped when the
     // game's language changes.
@@ -60,7 +59,7 @@ internal static class EnglishNames
     /// <param name="prefabName">The item's prefab name, used only when the item has no usable name.</param>
     internal static string FromGame(string sharedName, string prefabName)
     {
-        string name = Clean(sharedName);
+        string name = BossCatalog.StripTags(sharedName);
 
         if (name.Length == 0)
             return ToEnglish(prefabName);
@@ -80,7 +79,7 @@ internal static class EnglishNames
     /// <param name="name">A key, a prefab name or an item name.</param>
     internal static string ToEnglish(string name)
     {
-        string text = Clean(name);
+        string text = BossCatalog.StripTags(name);
         if (text.Length == 0)
             return string.Empty;
 
@@ -167,7 +166,7 @@ internal static class EnglishNames
     /// <param name="prefabName">The creature's prefab name; "(Clone)" is ignored.</param>
     internal static string CreatureFromGame(string nameKey, string prefabName)
     {
-        string key = Clean(nameKey);
+        string key = BossCatalog.StripTags(nameKey);
         string prefab = BossCatalog.CleanPrefabName(prefabName);
 
         if (key.Length == 0)
@@ -194,7 +193,7 @@ internal static class EnglishNames
     /// this game cannot resolve); may be null.</param>
     internal static string CreatureToEnglish(string name, string prefabName)
     {
-        string text = Clean(BossCatalog.CleanPrefabName(name));
+        string text = BossCatalog.StripTags(BossCatalog.CleanPrefabName(name));
         if (text.Length == 0)
             return string.Empty;
 
@@ -261,7 +260,7 @@ internal static class EnglishNames
             if (GameCache.TryGetValue(key, out cached))
                 return cached;
 
-            string text = Clean(localization.Localize(key));
+            string text = BossCatalog.StripTags(localization.Localize(key));
 
             // The game answers an unknown key with the key itself or with "[key]".
             bool usable = text.Length > 0 &&
@@ -397,14 +396,4 @@ internal static class EnglishNames
         return false;
     }
 
-    private static string Clean(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-            return string.Empty;
-
-        return AnyTag.Replace(value, string.Empty)
-            .Replace("\r", " ")
-            .Replace("\n", " ")
-            .Trim();
-    }
 }

@@ -8,6 +8,7 @@
 ### Changed
 - Changed: all the **Enable** switches are now together in `[General]` and have new names: `Enable Mod` (was `EnableAll`) and `Enable Chat`, `Enable Screenshots`, `Enable Clips`, `Enable Player Deaths`, `Enable Boss Death`, `Enable Server Notifications`, `Enable Player Notifications`, `Enable Weekly Report` (each was `Enable` in its own section; they are still synced from the server). The values you had set are taken over; the old entries are removed from your config file.
 - Changed: `Enable Mod` is now the first setting of `[General]`, in the F1 menu and in the F6 hub (your value is taken over).
+- Changed: the F6 hub has only ONE **Screenshots** tab: the **Take a screenshot now** buttons are at the top and the screenshot settings are below them (there were two Screenshots tabs before).
 
 ### Fixed
 - Test suite: `death-quotes` no longer depends on what ran before it in the same game session. The check now sets the player's own last hit aside while it builds each quote (an old Fall hit from an earlier test made every Tree quote fail). The death messages players see are unchanged.

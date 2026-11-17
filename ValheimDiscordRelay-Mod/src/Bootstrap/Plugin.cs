@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using BepInEx;
@@ -73,7 +73,7 @@ public sealed class ValheimDiscordRelayPlugin : BaseUnityPlugin
         CaptureService = new ClientCaptureService(this);
         CaptureService.Initialize();
 
-        // The F6 hub page (settings + screenshots tabs) and the features; a dedicated server has no hub window.
+        // The F6 hub page (one settings tab per config category; the Screenshots tab has the screenshot buttons on top) and the features; a dedicated server has no hub window.
         _installer = new ModInstaller(Config, CaptureService, !Application.isBatchMode);
         if (!_installer.Install())
             ModLog.Warn("ModInstaller did not finish; see the lines above.");

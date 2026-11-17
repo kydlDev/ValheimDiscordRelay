@@ -1,4 +1,4 @@
-using BepInEx.Configuration;
+﻿using BepInEx.Configuration;
 using KydlCore.Common;
 using KydlCore.Core;
 using ValheimDiscordRelay.Client;
@@ -6,7 +6,7 @@ using ValheimDiscordRelay.Presentation.Hub.Registration;
 
 namespace ValheimDiscordRelay.Bootstrap;
 
-/// <summary>Composition root: the mod's KY hub page (title, settings and screenshots tabs) and its features in the FeatureRegistry (MIGRATION_DECISIONS A4).</summary>
+/// <summary>Composition root: the mod's KY hub page (title, one settings tab per config category, the screenshot panel on top of the Screenshots tab) and its features in the FeatureRegistry (MIGRATION_DECISIONS A4).</summary>
 internal sealed class ModInstaller
 {
     private readonly ConfigFile _config;
